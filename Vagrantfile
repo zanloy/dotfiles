@@ -8,7 +8,7 @@ SCRIPT
 
 Vagrant.configure("2") do |config|
   config.vm.box = 'ubuntu/bionic64'
-  config.vm.synced_folder '.', '/home/vagrant/.dotfiles'
+  config.vm.synced_folder '.', '/home/vagrant/.dotfiles', disabled: true
   config.vm.provision 'shell', inline: $script
 
   config.vm.provider "virtualbox" do |vb|
