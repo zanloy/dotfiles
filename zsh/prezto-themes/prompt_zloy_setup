@@ -1,0 +1,47 @@
+function prompt_zloy_precmd {
+  git-info
+}
+
+function prompt_zloy_setup {
+  setopt LOCAL_OPTIONS
+  unsetopt XTRACE KSH_ARRAYS
+  prompt_opts=(cr percent subst)
+
+  # Use extended color pallete if available.
+  if [[ $TERM = *256color* || $TERM = *rxvt* ]]; then
+    _prompt_zloy_colors=(
+      "%F{green}"
+      "%F{white}"
+      "%F{blue}"
+      "%F{red}"
+    )
+  else
+    _prompt_zloy_colors=(
+      "%F{green}"
+      "%F{white}"
+      "%F{blue}"
+      "%F{red}"
+    )
+  fi
+
+  # Load required functions.
+  autoload -Uz add-zsh-hook
+
+  # Add hook for calling git-info before each command.
+  add-zsh-hook precmd prompt_zloy_precmd
+
+  # Set git-info parameters.
+  zstyle ':prezto:module:git:info' verbose 'yes'
+  zstyle ':prezto:module:git:info:branch' format '%F{blue}%b%f'
+  zstyle ':prezto:module:git:info:clean' format ' %F{green}✔%f'
+  zstyle ':prezto:module:git:info:dirty' format ' %F{red}✗%f'
+  zstyle ':prezto:module:git:info:keys' format \
+    'prompt' ' %F{green}(%f$(coalesce "%b" "%p" "%c")${git_info[rprompt]}%s%F{green})%f' \
+    'rprompt' '%C%D'
+
+  # Define prompts.
+  PROMPT='${_prompt_zloy_colors[1]}[ ${_prompt_zloy_colors[2]}%m ${_prompt_zloy_colors[3]}:: ${_prompt_zloy_colors[2]}%3~ ${_prompt_zloy_colors[1]}]${(e)git_info[prompt]} ${_prompt_zloy_colors[2]}$ '
+  RPROMPT=''
+}
+
+prompt_zloy_setup "$@"

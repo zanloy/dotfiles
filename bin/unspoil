@@ -1,0 +1,35 @@
+#!/usr/bin/env ruby
+
+require 'fileutils'
+
+def scan(dir)
+  exts = %w[mkv mp4 avi ts]
+  files = []
+  exts.each do |ext|
+    eval %Q[files += Dir.glob(File.join(dir, "**/*.#{ext}"))]
+  end
+  files.each do |file|
+    dir = File.dirname(file)
+    ext = File.extname(file)
+    filename = File.basename(file, ext)
+    preview = File.join(dir, "#{filename}.jpg")
+    unless File.exists?(preview)
+      background = File.join(dir, 'background.jpg')
+      if File.exists?(background)
+        FileUtils.cp(background, preview)
+      else
+        `ffmpeg -i '#{file}' -r 1 -vframes 1 -ss 00:05:00 '#{preview}'`
+      end
+    end
+  end
+end
+
+if ARGV.empty?
+  arguments = ['/netshare/videos/racing']
+else
+  arguments = ARGV
+end
+
+arguments.each do |arg|
+  scan(arg)
+end
