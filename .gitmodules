@@ -200,3 +200,87 @@
 [submodule "vim/pack/projects/start/vim-misc"]
 	path = vim/pack/projects/start/vim-misc
 	url = git@github.com:xolox/vim-misc
+[submodule "vim/pack/ruby/start/rspec.vim"]
+	path = vim/pack/ruby/start/rspec.vim
+	url = git@github.com:Keithbsmiley/rspec.vim
+[submodule "vim/pack/ruby/start/vim-bundler"]
+	path = vim/pack/ruby/start/vim-bundler
+	url = git@github.com:tpope/vim-bundler
+[submodule "vim/pack/ruby/start/vim-change-hash-syntax"]
+	path = vim/pack/ruby/start/vim-change-hash-syntax
+	url = git@github.com:ck3g/vim-change-hash-syntax
+[submodule "vim/pack/ruby/start/vim-iterm-rspec"]
+	path = vim/pack/ruby/start/vim-iterm-rspec
+	url = git@github.com:skwp/vim-iterm-rspec
+[submodule "vim/pack/ruby/start/vim-rails"]
+	path = vim/pack/ruby/start/vim-rails
+	url = git@github.com:tpope/vim-rails.git
+[submodule "vim/pack/ruby/start/vim-rake"]
+	path = vim/pack/ruby/start/vim-rake
+	url = git@github.com:tpope/vim-rake.git
+[submodule "vim/pack/ruby/start/vim-ruby"]
+	path = vim/pack/ruby/start/vim-ruby
+	url = git@github.com:vim-ruby/vim-ruby.git
+[submodule "vim/pack/ruby/start/vim-ruby-refactoring"]
+	path = vim/pack/ruby/start/vim-ruby-refactoring
+	url = git@github.com:ecomba/vim-ruby-refactoring
+[submodule "vim/pack/ruby/start/vim-slim"]
+	path = vim/pack/ruby/start/vim-slim
+	url = git@github.com:slim-template/vim-slim.git
+[submodule "vim/pack/ruby/start/vim-spec-finder"]
+	path = vim/pack/ruby/start/vim-spec-finder
+	url = git@github.com:skwp/vim-spec-finder
+[submodule "vim/pack/search/start/ag.vim"]
+	path = vim/pack/search/start/ag.vim
+	url = git@github.com:rking/ag.vim
+[submodule "vim/pack/search/start/greplace.vim"]
+	path = vim/pack/search/start/greplace.vim
+	url = git@github.com:skwp/greplace.vim
+[submodule "vim/pack/search/start/IndexedSearch"]
+	path = vim/pack/search/start/IndexedSearch
+	url = git@github.com:vim-scripts/IndexedSearch
+[submodule "vim/pack/search/start/vim-easymotion"]
+	path = vim/pack/search/start/vim-easymotion
+	url = git@github.com:Lokaltog/vim-easymotion
+[submodule "vim/pack/search/start/vim-sneak"]
+	path = vim/pack/search/start/vim-sneak
+	url = git@github.com:justinmk/vim-sneak
+[submodule "vim/pack/search/start/vim-visual-star-search"]
+	path = vim/pack/search/start/vim-visual-star-search
+	url = git@github.com:nelstrom/vim-visual-star-search
+[submodule "vim/pack/textobjects/start/argtextobj.vim"]
+	path = vim/pack/textobjects/start/argtextobj.vim
+	url = git@github.com:vim-scripts/argtextobj.vim
+[submodule "vim/pack/textobjects/start/textobj-word-column.vim"]
+	path = vim/pack/textobjects/start/textobj-word-column.vim
+	url = git@github.com:coderifous/textobj-word-column.vim
+[submodule "vim/pack/textobjects/start/vim-indent-guides"]
+	path = vim/pack/textobjects/start/vim-indent-guides
+	url = git@github.com:nathanaelkane/vim-indent-guides
+[submodule "vim/pack/textobjects/start/vim-indentobject"]
+	path = vim/pack/textobjects/start/vim-indentobject
+	url = git@github.com:austintaylor/vim-indentobject
+[submodule "vim/pack/textobjects/start/vim-textobj-datetime"]
+	path = vim/pack/textobjects/start/vim-textobj-datetime
+	url = git@github.com:kana/vim-textobj-datetime
+[submodule "vim/pack/textobjects/start/vim-textobj-entire"]
+	path = vim/pack/textobjects/start/vim-textobj-entire
+	url = git@github.com:kana/vim-textobj-entire
+[submodule "vim/pack/textobjects/start/vim-textobj-function"]
+	path = vim/pack/textobjects/start/vim-textobj-function
+	url = git@github.com:kana/vim-textobj-function
+[submodule "vim/pack/textobjects/start/vim-textobj-function-javascript"]
+	path = vim/pack/textobjects/start/vim-textobj-function-javascript
+	url = git@github.com:thinca/vim-textobj-function-javascript
+[submodule "vim/pack/textobjects/start/vim-textobj-rubyblock"]
+	path = vim/pack/textobjects/start/vim-textobj-rubyblock
+	url = git@github.com:nelstrom/vim-textobj-rubyblock
+[submodule "vim/pack/textobjects/start/vim-textobj-rubysymbol"]
+	path = vim/pack/textobjects/start/vim-textobj-rubysymbol
+	url = git@github.com:bootleq/vim-textobj-rubysymbol
+[submodule "vim/pack/textobjects/start/vim-textobj-underscore"]
+	path = vim/pack/textobjects/start/vim-textobj-underscore
+	url = git@github.com:lucapette/vim-textobj-underscore
+[submodule "vim/pack/textobjects/start/vim-textobj-user"]
+	path = vim/pack/textobjects/start/vim-textobj-user
+	url = git@github.com:kana/vim-textobj-user
