@@ -58,16 +58,19 @@ def install_prezto
   `ln -nfs "$HOME/.dotfiles/zsh/prezto" "${ZDOTDIR:-$HOME}/.zprezto"`
 
   # The prezto runcoms are only going to be installed if zprezto has never been installed
-  runcoms = Dir.glob('zsh/prezto/runcoms/z*').reject { |r| r['zsh/prezto/runcoms/zpreztorc'] }
+  runcoms = Dir.glob('zsh/prezto/runcoms/z*').reject { |r| ['zshrc', 'zpreztorc'].include? File.basename(r) }
   install_files(runcoms, quiet: true)
+
+  dot_print "[+] Overriding the default ~/.zshrc with ours"
+  `ln -nfs "$HOME/.dotfiles/zsh/zshrc" "$HOME/.zshrc"`
 
   dot_print "[+] Overriding the default ~/.zpreztorc with ours"
   `ln -nfs "$HOME/.dotfiles/zsh/prezto-override/zpreztorc" "${ZDOTDIR:-$HOME}/.zpreztorc"`
 
-  dot_print "[+] Creating directories for local changes"
-  `mkdir -p $HOME/.zsh.before`
-  `mkdir -p $HOME/.zsh.after`
-  `mkdir -p $HOME/.zsh.prompts`
+  #dot_print "[+] Creating directories for local changes"
+  #`mkdir -p $HOME/.zsh.before`
+  #`mkdir -p $HOME/.zsh.after`
+  #`mkdir -p $HOME/.zsh.prompts`
 
   if "#{ENV['SHELL']}".include? 'zsh' then
     dot_print "[!] Zsh is already configured as your shell of choice. Restart your session to load the new settings", color: :red
