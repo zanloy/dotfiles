@@ -30,6 +30,27 @@ task :install do
   install_prezto
 end
 
+desc 'Fix detached HEAD issues with git submodules'
+task :fix_head do
+  require 'pry'
+  dot_require :git
+  home = File.join('vim', 'pack')
+  get_subdirectories(home).each do |root|
+    get_subdirectories(File.join(root, 'start')).each do |dir|
+      repo = File.join(Dir.pwd, '.git', 'modules', dir)
+      idx = File.join(repo, 'index')
+      git = Git.open(dir, repository: repo, index: idx)
+      dot_print "Updating #{dir} (current_branch: #{git.branch})...", newline: false
+      if git.branch.name == 'master'
+        dot_print 'already at master.'
+      else
+        git.checkout 'master'
+        dot_print 'updated to master.'
+      end
+    end
+  end
+end
+
 private
 def install_prezto
   dot_print "[*] Installing Prezto", color: :light_blue
@@ -95,10 +116,18 @@ end
 
 def dot_print(data, color: :green, newline: true)
   print (data.respond_to?(:colorize) ? data.colorize(color) : data)
-  #if data.respond_to? :colorize
-  #  print data.colorize(color)
-  #else
-  #  print data
-  #end
   print "\n" if newline
+end
+
+def dot_require(param)
+  begin
+    require param.to_s
+  rescue
+    dot_print "The ruby gem #{param} is required. To install run 'gem install #{param}'"
+    exit 1
+  end
+end
+
+def get_subdirectories(dir)
+  Dir.glob("#{dir}/*").select { |f| File.directory? f }
 end
