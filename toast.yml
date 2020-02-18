@@ -1,0 +1,18 @@
+---
+image: ubuntu
+tasks:
+  update_apt_cache:
+    command: 'apt update'
+
+  install_deps:
+    dependencies:
+      - update_apt_cache
+    command: 'apt install -y git ruby vim zsh'
+
+  run:
+    dependencies:
+      - install_deps
+    input_paths:
+      - .
+    location: '/root/.dotfiles'
+    command: 'rake install'

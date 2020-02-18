@@ -1,3 +1,3 @@
 if [ -d '/snap/bin' ]; then
-  export PATH="/snap/bin:${PATH}"
+  path+=('/snap/bin')
 fi
