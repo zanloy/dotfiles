@@ -26,9 +26,6 @@
 [submodule "vim/pack/appearances/start/tmux.vim"]
   path = vim/pack/appearances/start/tmux.vim
   url = https://github.com/jby/tmux.vim.git
-[submodule "vim/pack/colorschemes/start/vim-colors-solarized"]
-  path = vim/pack/colorschemes/start/vim-colors-solarized
-  url = https://github.com/skwp/vim-colors-solarized.git
 [submodule "vim/pack/colorschemes/start/vim-colors-grb256"]
   path = vim/pack/colorschemes/start/vim-colors-grb256
   url = https://github.com/zanloy/vim-colors-grb256.git
