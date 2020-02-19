@@ -27,5 +27,5 @@ else
   end
 endif
 
-colorscheme anderson
 set background=dark
+colorscheme solarized
