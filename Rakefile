@@ -37,10 +37,10 @@ task :install do
   print "\n"
 
   # Install fonts
-  install_fonts
+  Rake::Task['install_fonts'].invoke
 
   # Install prezto
-  install_prezto
+  Rake::Task['install_prezto'].invoke
 end
 
 desc 'Install fonts from repo'
@@ -49,6 +49,7 @@ task :install_fonts do
   case ARCH
   when 'linux'
     font_dir = File.join(ENV['HOME'], '.fonts')
+    FileUtils.mkdir(font_dir) unless File.exists?(font_dir)
   when 'osx'
     font_dir = File.join(ENV['HOME'], 'Library', 'Fonts')
   end
@@ -60,7 +61,7 @@ task :install_fonts do
     if File.exists?(dest)
       dot_print 'already installed.'
     else
-      File.cp(font, dest)
+      FileUtils.cp(font, dest)
       dot_print 'installed.'
     end
   end
@@ -131,9 +132,11 @@ def install_files(files, method: :symlink, quiet: false)
     end
 
     if method == :symlink
-      `ln -nfs "#{source}" "#{target}"`
+      #`ln -nfs "#{source}" "#{target}"`
+      FileUtils.symlink(source, target)
     else
-      `cp -f "#{source}" "#{target}"`
+      #`cp -f "#{source}" "#{target}"`
+      FileUtils.cp(source, target)
     end
 
     dot_print('.', newline: false) unless quiet

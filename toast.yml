@@ -10,6 +10,7 @@ tasks:
     command: 'apt install -y git ruby tmux vim zsh'
 
   run:
+    cache: false
     dependencies:
       - install_deps
     input_paths:
