@@ -7,7 +7,7 @@ tasks:
   install_deps:
     dependencies:
       - update_apt_cache
-    command: 'apt install -y git ruby vim zsh'
+    command: 'apt install -y git ruby tmux vim zsh'
 
   run:
     dependencies:
