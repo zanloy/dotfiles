@@ -10,6 +10,16 @@ rescue LoadError
   puts '[!] You should think about installing the colorize gem for better output: `gem install colorize`'
 end
 
+ARCH =
+  case
+  when RUBY_PLATFORM.include?('linux')
+    'linux'
+  when RUBY_PLATFORM.include?('darwin')
+    'osx'
+  else
+    raise 'This script only works on Mac or Linux'
+  end
+
 desc 'Symlink all our dotfiles into their positions in $HOME'
 task :install do
   $stdout.sync = true # To keep the display buffer synced
@@ -21,18 +31,43 @@ task :install do
     print "\n"
   end
 
-  # Installing Vim files
+  # Instal Vim files
   dot_print '[+] Installing vim files', newline: false
   install_files(Dir.glob('{vim,vimrc}'))
   print "\n"
+
+  # Install fonts
+  install_fonts
 
   # Install prezto
   install_prezto
 end
 
+desc 'Install fonts from repo'
+task :install_fonts do
+  dot_print "[+] Installing font files..."
+  case ARCH
+  when 'linux'
+    font_dir = File.join(ENV['HOME'], '.fonts')
+  when 'osx'
+    font_dir = File.join(ENV['HOME'], 'Library', 'Fonts')
+  end
+  Dir.glob(File.join(File.dirname(__FILE__), 'fonts', '*')).each do |font|
+    # TODO: Make this work on non-macs
+    filename = File.basename(font)
+    dest = File.join(font_dir, filename)
+    dot_print "[-] Installing #{filename}...", newline: false
+    if File.exists?(dest)
+      dot_print 'already installed.'
+    else
+      File.cp(font, dest)
+      dot_print 'installed.'
+    end
+  end
+end
+
 desc 'Fix detached HEAD issues with git submodules'
 task :fix_head do
-  require 'pry'
   dot_require :git
   home = File.join('vim', 'pack')
   get_subdirectories(home).each do |root|
@@ -51,8 +86,8 @@ task :fix_head do
   end
 end
 
-private
-def install_prezto
+desc 'Install Prezto Zsh Framework'
+task :install_prezto do
   dot_print "[*] Installing Prezto", color: :light_blue
 
   `ln -nfs "$HOME/.dotfiles/zsh/prezto" "${ZDOTDIR:-$HOME}/.zprezto"`
@@ -66,11 +101,6 @@ def install_prezto
 
   dot_print "[+] Overriding the default ~/.zpreztorc with ours"
   `ln -nfs "$HOME/.dotfiles/zsh/prezto-override/zpreztorc" "${ZDOTDIR:-$HOME}/.zpreztorc"`
-
-  #dot_print "[+] Creating directories for local changes"
-  #`mkdir -p $HOME/.zsh.before`
-  #`mkdir -p $HOME/.zsh.after`
-  #`mkdir -p $HOME/.zsh.prompts`
 
   if "#{ENV['SHELL']}".include? 'zsh' then
     dot_print "[!] Zsh is already configured as your shell of choice. Restart your session to load the new settings", color: :red
@@ -88,6 +118,8 @@ def install_prezto
   end
 end
 
+private
+
 def install_files(files, method: :symlink, quiet: false)
   files.each do |file|
     source = "#{ENV['PWD']}/#{file}"
@@ -100,20 +132,11 @@ def install_files(files, method: :symlink, quiet: false)
 
     if method == :symlink
       `ln -nfs "#{source}" "#{target}"`
-      dot_print('.', newline: false) unless quiet
     else
       `cp -f "#{source}" "#{target}"`
-      dot_print('.', newline: false) unless quiet
     end
 
-    source_config_code = "for config_file ($HOME/.dotfiles/zsh/*.zsh) source $config_file"
-    if File.basename(file) == 'zshrc'
-      File.open(target, 'a+') do |zshrc|
-        if zshrc.readlines.grep(/#{Regexp.escape(source_config_code)}/).empty?
-          zshrc.puts(source_config_code)
-        end
-      end
-    end
+    dot_print('.', newline: false) unless quiet
   end
 end
 
