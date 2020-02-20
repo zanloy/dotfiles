@@ -41,6 +41,9 @@ task :install do
 
   # Install prezto
   Rake::Task['install_prezto'].invoke
+
+  # Install terminal specific configs
+  Rake::Task['install_terms'].invoke
 end
 
 desc 'Install fonts from repo'
@@ -119,6 +122,24 @@ task :install_prezto do
   end
 end
 
+desc 'Update terminal specific settings'
+task :install_terms do
+  terms_dir = File.join(File.dirname(__FILE__), 'terminals')
+  # terminator
+  if File.directory?(File.join(ENV['HOME'], '.config'))
+    termrc = File.join(terms_dir, 'terminator', 'config')
+    FileUtils.mkdir_p File.join(ENV['HOME'], '.config', 'terminator')
+    FileUtils.cp(termrc, File.expand_path('~/.config/terminator/config'))
+  end
+
+  # xfce4-terminal
+  xfcerc = File.expand_path('~/.config/xfce4/terminal/terminalrc')
+  if File.exists?(xfcerc)
+    termrc = File.join(terms_dir, 'xfce4', 'solarized-dark.rc')
+    FileUtils.cp(termrc, xfcerc)
+  end
+end
+
 private
 
 def install_files(files, method: :symlink, quiet: false)
@@ -133,7 +154,7 @@ def install_files(files, method: :symlink, quiet: false)
 
     if method == :symlink
       #`ln -nfs "#{source}" "#{target}"`
-      FileUtils.symlink(source, target)
+      FileUtils.symlink(source, target, force: true)
     else
       #`cp -f "#{source}" "#{target}"`
       FileUtils.cp(source, target)
