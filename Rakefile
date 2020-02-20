@@ -25,15 +25,20 @@ task :install do
   $stdout.sync = true # To keep the display buffer synced
   dot_print '[*] Installing .dotfiles', color: :light_blue
 
-  %w[git irb ruby tmux].each do |element|
+  %w[git irb ruby].each do |element|
     dot_print "[+] Installing #{element} files", newline: false
-    install_files(Dir.glob("#{element}/*"))
+    install_files(Dir["#{element}/*"])
     print "\n"
   end
 
-  # Instal Vim files
+  # tmux
+  dot_print "[+] Installing tmux files", newline: false
+  install_files(Dir['tmux/*'] - ['tmux/oh-mytmux'])
+  print "\n"
+
+  # Install Vim files
   dot_print '[+] Installing vim files', newline: false
-  install_files(Dir.glob('{vim,vimrc}'))
+  install_files ['vim', 'vimrc']
   print "\n"
 
   # Install fonts
@@ -56,8 +61,7 @@ task :install_fonts do
   when 'osx'
     font_dir = File.join(ENV['HOME'], 'Library', 'Fonts')
   end
-  Dir.glob(File.join(File.dirname(__FILE__), 'fonts', '*')).each do |font|
-    # TODO: Make this work on non-macs
+  Dir['fonts/*'].each do |font|
     filename = File.basename(font)
     dest = File.join(font_dir, filename)
     dot_print "[-] Installing #{filename}...", newline: false
