@@ -134,5 +134,5 @@
 [user]
   name = Zan Loy
   email = zan.loy@gmail.com
-[credentials]
-	helper = cache
+[credential]
+	helper = store
