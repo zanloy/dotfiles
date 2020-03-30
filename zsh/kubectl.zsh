@@ -1,4 +1,4 @@
-if [[ -x /usr/bin/kubectl ]]; then
+if [[ -x "$(command -v kubectl)" ]]; then
   source <(kubectl completion zsh)
   alias k='kubectl'
   complete -F __start_kubectl k

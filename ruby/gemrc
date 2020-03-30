@@ -1,7 +1,7 @@
 ---
 backtrace: false
 benchmark: false
-gem: --no-document --suggestions
+gem: --suggestions
 sources:
   - http://rubygems.org
 update_sources: true

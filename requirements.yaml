@@ -1,0 +1,19 @@
+reqs:
+  nvim:
+    apt:
+      - python3
+      - python3-pip
+      - python3-setuptools
+    pip:
+      - wheel
+      - pynvim
+install_steps:
+  - terminology:
+      - install: |-
+          add-apt-repository ppa:niko2040/e19
+          apt install enlightenment terminology
+  - rbenv-ctags:
+      - install: |-
+          mkdir -p ~/plugins
+          git clone git://github.com/tpope/rbenv-ctags.git ~/.rbenv/plugins/rbenv-ctags
+          rbenv ctags
