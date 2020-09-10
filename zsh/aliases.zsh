@@ -137,8 +137,7 @@ alias tfdl='tail -f log/development.log'
 alias tftl='tail -f log/test.log'
 
 # Gem install
-alias sgi='sudo gem install --no-ri --no-rdoc'
-
+alias sgi='sudo gem install'
 alias rdm='rake db:migrate'
 alias rdmr='rake db:migrate:redo'
 
@@ -163,3 +162,10 @@ alias dbmu='spring rake db:migrate:up'
 
 # Homebrew
 alias brewu='brew update && brew upgrade && brew cleanup && brew prune && brew doctor'
+
+# bat (https://github.com/sharkdp/bat)
+# The ubuntu packages for bat rename the executable to prevent a name collision
+# with another package so we alias it.
+if [ -x /usr/bin/batcat ]; then
+  alias bat='batcat'
+fi
