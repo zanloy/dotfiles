@@ -2,9 +2,6 @@
   path = zsh/prezto
   url = https://github.com/sorin-ionescu/prezto.git
   ignore = dirty
-[submodule "vim/pack/appearances/start/color_highlight"]
-  path = vim/pack/appearances/start/color_highlight
-  url = https://github.com/chrisbra/color_highlight.git
 [submodule "vim/pack/appearances/start/csapprox"]
   path = vim/pack/appearances/start/csapprox
   url = https://github.com/godlygeek/csapprox.git
