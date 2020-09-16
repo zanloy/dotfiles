@@ -11,9 +11,6 @@
 [submodule "vim/pack/projects/start/vim-session"]
   path = vim/pack/projects/start/vim-session
   url = https://github.com/xolox/vim-session
-[submodule "vim/pack/projects/start/vim-misc"]
-  path = vim/pack/projects/start/vim-misc
-  url = https://github.com/xolox/vim-misc
 [submodule "vim/pack/ruby/start/rspec.vim"]
   path = vim/pack/ruby/start/rspec.vim
   url = https://github.com/Keithbsmiley/rspec.vim
