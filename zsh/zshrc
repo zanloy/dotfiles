@@ -2,7 +2,7 @@
 # Executes commands at the start of an interactive session.
 #
 
-# Run any zsh commands before everything else
+# Run any local zsh commands before everything else
 if [[ -d "${ZDOTDIR:-$HOME}/.zsh.before" ]]; then
   for config_file (${ZDOTDIR:-$HOME}/.zsh.before/*.zsh) source $config_file
 fi
@@ -15,7 +15,7 @@ fi
 # Run any zsh commands configured in the dotfiles repo
 for config_file (${ZDOTDIR:-$HOME}/.dotfiles/zsh/*.zsh) source $config_file
 
-# Run any zsh commands after everything else
+# Run any local zsh commands after everything else
 if [[ -d "${ZDOTDIR:-$HOME}/.zsh.after" ]]; then
   for config_file (${ZDOTDIR:-$HOME}/.zsh.after/*.zsh) source $config_file
 fi
