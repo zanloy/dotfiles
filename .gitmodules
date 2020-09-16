@@ -2,9 +2,6 @@
   path = zsh/prezto
   url = https://github.com/sorin-ionescu/prezto.git
   ignore = dirty
-[submodule "vim/pack/appearances/start/csapprox"]
-  path = vim/pack/appearances/start/csapprox
-  url = https://github.com/godlygeek/csapprox.git
 [submodule "vim/pack/appearances/start/vim-gitgutter"]
   path = vim/pack/appearances/start/vim-gitgutter
   url = https://github.com/airblade/vim-gitgutter.git
