@@ -5,9 +5,6 @@
 [submodule "vim/pack/appearances/start/vim-gitgutter"]
   path = vim/pack/appearances/start/vim-gitgutter
   url = https://github.com/airblade/vim-gitgutter.git
-[submodule "vim/pack/colorschemes/start/vim-colors-grb256"]
-  path = vim/pack/colorschemes/start/vim-colors-grb256
-  url = https://github.com/zanloy/vim-colors-grb256.git
 [submodule "vim/pack/colorschemes/start/vim-colors-sunburst"]
   path = vim/pack/colorschemes/start/vim-colors-sunburst
   url = https://github.com/zanloy/vim-colors-sunburst.git
