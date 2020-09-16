@@ -8,9 +8,6 @@
 [submodule "vim/pack/improvements/start/vim-commentary"]
   path = vim/pack/improvements/start/vim-commentary
   url = https://github.com/tpope/vim-commentary.git
-[submodule "vim/pack/improvements/start/tabular"]
-  path = vim/pack/improvements/start/tabular
-  url = https://github.com/godlygeek/tabular
 [submodule "vim/pack/improvements/start/tcomment_vim"]
   path = vim/pack/improvements/start/tcomment_vim
   url = https://github.com/tomtom/tcomment_vim.git
