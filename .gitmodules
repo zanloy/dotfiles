@@ -41,9 +41,6 @@
 [submodule "vim/pack/improvements/start/neocomplete"]
   path = vim/pack/improvements/start/neocomplete
   url = https://github.com/Shougo/neocomplete.git
-[submodule "vim/pack/improvements/start/NrrwRgn"]
-  path = vim/pack/improvements/start/NrrwRgn
-  url = https://github.com/chrisbra/NrrwRgn
 [submodule "vim/pack/improvements/start/splitjoin.vim"]
   path = vim/pack/improvements/start/splitjoin.vim
   url = https://github.com/AndrewRadev/splitjoin.vim
