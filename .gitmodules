@@ -8,9 +8,6 @@
 [submodule "vim/pack/languages/start/vim-textobj-function-javascript"]
   path = vim/pack/languages/start/vim-textobj-function-javascript
   url = https://github.com/thinca/vim-textobj-function-javascript
-[submodule "vim/pack/languages/start/vim-snippets"]
-  path = vim/pack/languages/start/vim-snippets
-  url = https://github.com/honza/vim-snippets
 [submodule "vim/pack/projects/start/ctrlp.vim"]
   path = vim/pack/projects/start/ctrlp.vim
   url = https://github.com/kien/ctrlp.vim
