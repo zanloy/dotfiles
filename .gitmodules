@@ -8,9 +8,6 @@
 [submodule "vim/pack/improvements/start/vim-commentary"]
   path = vim/pack/improvements/start/vim-commentary
   url = https://github.com/tpope/vim-commentary.git
-[submodule "vim/pack/improvements/start/vim-bracketed-paste"]
-  path = vim/pack/improvements/start/vim-bracketed-paste
-  url = https://github.com/ConradIrwin/vim-bracketed-paste
 [submodule "vim/pack/improvements/start/vim-endwise"]
   path = vim/pack/improvements/start/vim-endwise
   url = https://github.com/tpope/vim-endwise.git
