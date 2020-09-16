@@ -11,9 +11,6 @@
 [submodule "vim/pack/search/start/greplace.vim"]
   path = vim/pack/search/start/greplace.vim
   url = https://github.com/skwp/greplace.vim
-[submodule "vim/pack/search/start/IndexedSearch"]
-  path = vim/pack/search/start/IndexedSearch
-  url = https://github.com/vim-scripts/IndexedSearch
 [submodule "vim/pack/search/start/vim-easymotion"]
   path = vim/pack/search/start/vim-easymotion
   url = https://github.com/Lokaltog/vim-easymotion
