@@ -5,9 +5,6 @@
 [submodule "vim/pack/appearances/start/vim-gitgutter"]
   path = vim/pack/appearances/start/vim-gitgutter
   url = https://github.com/airblade/vim-gitgutter.git
-[submodule "vim/pack/projects/start/vim-session"]
-  path = vim/pack/projects/start/vim-session
-  url = https://github.com/xolox/vim-session
 [submodule "vim/pack/ruby/start/rspec.vim"]
   path = vim/pack/ruby/start/rspec.vim
   url = https://github.com/Keithbsmiley/rspec.vim
