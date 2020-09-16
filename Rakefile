@@ -33,7 +33,7 @@ task :install do
 
   # tmux
   dot_print "[+] Installing tmux files", newline: false
-  install_files(Dir['tmux/*'] - ['tmux/oh-mytmux'])
+  install_files(Dir['tmux/*'] - ['tmux/oh-my-tmux'])
   print "\n"
 
   # Install Vim files
@@ -44,8 +44,8 @@ task :install do
   # Install fonts
   Rake::Task['install_fonts'].invoke
 
-  # Install prezto
-  Rake::Task['install_prezto'].invoke
+  # Install oh-my-zsh
+  Rake::Task['install_oh-my-zsh'].invoke
 
   # Install terminal specific configs
   Rake::Task['install_terms'].invoke
@@ -92,6 +92,11 @@ task :fix_head do
       end
     end
   end
+end
+
+desc 'Install oh-my-zsh Framework'
+task :install_oh-my-zsh do
+  # TODO: Do this.
 end
 
 desc 'Install Prezto Zsh Framework'
