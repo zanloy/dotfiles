@@ -8,10 +8,6 @@ reqs:
       - wheel
       - pynvim
 install_steps:
-  - terminology:
-      - install: |-
-          add-apt-repository ppa:niko2040/e19
-          apt install enlightenment terminology
   - rbenv-ctags:
       - install: |-
           mkdir -p ~/plugins
