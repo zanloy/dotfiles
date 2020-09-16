@@ -14,6 +14,7 @@ if [[ -x "$(command -v kubectl)" ]]; then
   complete -F __start_kubectl k
   alias kns="kubectl config set-context --current --namespace"
   alias dev8='kubectl config use-context dev8'
+  alias stage8='kubectl config use-context stage8'
   alias prod8='kubectl config use-context prod8'
   alias -- find-pod="kubectl get pods --all-namespaces | grep "
   alias -- find-pods-on-node='tmp_func(){ kubectl get pods --all-namespaces -o wide --field-selector spec.nodeName="$1"; unset -f tmp_func; }; tmp_func'

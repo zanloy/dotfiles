@@ -12,18 +12,13 @@ elif [[ $unamestr == 'Darwin' ]]; then
 fi
 
 # dpkg/apt support
-alias apt-get='sudo apt-get'
-alias apt-cache='sudo apt-cache'
+alias apt='sudo apt'
 alias dpkg='sudo dpkg'
-alias au='apt-get update'
-alias ai='apt-get install'
-alias ar='apt-get remove'
 alias dgs='dpkg --get-selections | grep'
 
 # PS
 alias psa="ps aux"
 alias psg="ps aux | grep "
-alias psr='ps aux | grep ruby'
 
 # Moving around
 alias cdb='cd -'
@@ -37,10 +32,12 @@ if [[ $platform == 'linux' ]]; then
   alias ll='ls -lh --color=auto'
   alias lla='ls -alh --color=auto'
   alias ls='ls --color=auto'
+  alias lsa='ls --color=auto'
 elif [[ $platform == 'darwin' ]]; then
   alias ll='ls -lGh'
   alias lla='ls -alGh'
   alias ls='ls -Gh'
+  alias lsa='ls -aG'
 fi
 
 # show me files matching "ls grep"
@@ -49,13 +46,6 @@ alias lsg='ll | grep'
 # Alias Editing
 alias ae='vim $dotfiles/zsh/aliases.zsh' #alias edit
 alias ar='source $dotfiles/zsh/aliases.zsh'  #alias reload
-
-# vim using
-mvim --version > /dev/null 2>&1
-MACVIM_INSTALLED=$?
-if [ $MACVIM_INSTALLED -eq 0 ]; then
-  alias vim="mvim -v"
-fi
 
 # mimic vim functions
 alias :q='exit'
@@ -124,48 +114,21 @@ alias less='less -r'
 alias tf='tail -f'
 alias l='less'
 alias lh='ls -alt | head' # see the last modified files
-alias screen='TERM=screen screen'
-alias cl='clear'
 
 # Zippin
 alias gz='tar -zcvf'
 
 # Ruby
-alias c='rails c'
-alias ts='thin start'
 alias tfdl='tail -f log/development.log'
 alias tftl='tail -f log/test.log'
 
 # Gem install
-alias sgi='sudo gem install'
 alias rdm='rake db:migrate'
 alias rdmr='rake db:migrate:redo'
-
-# Rspec
-alias rs='rspec spec'
-alias sr='spring rspec'
-alias src='spring rails c'
-alias srgm='spring rails g migration'
-alias srdm='spring rake db:migrate'
-alias srdt='spring rake db:migrate'
-alias srdmt='spring rake db:migrate db:test:prepare'
 
 # Finder
 alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
 alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
 
-alias dbtp='spring rake db:test:prepare'
-alias dbm='spring rake db:migrate'
-alias dbmr='spring rake db:migrate:redo'
-alias dbmd='spring rake db:migrate:down'
-alias dbmu='spring rake db:migrate:up'
-
 # Homebrew
 alias brewu='brew update && brew upgrade && brew cleanup && brew prune && brew doctor'
-
-# bat (https://github.com/sharkdp/bat)
-# The ubuntu packages for bat rename the executable to prevent a name collision
-# with another package so we alias it.
-if [ -x /usr/bin/batcat ]; then
-  alias bat='batcat'
-fi
