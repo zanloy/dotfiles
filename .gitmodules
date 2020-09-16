@@ -5,9 +5,6 @@
 [submodule "vim/pack/appearances/start/vim-gitgutter"]
   path = vim/pack/appearances/start/vim-gitgutter
   url = https://github.com/airblade/vim-gitgutter.git
-[submodule "vim/pack/textobjects/start/vim-textobj-underscore"]
-  path = vim/pack/textobjects/start/vim-textobj-underscore
-  url = https://github.com/lucapette/vim-textobj-underscore
 [submodule "vim/pack/textobjects/start/vim-textobj-user"]
   path = vim/pack/textobjects/start/vim-textobj-user
   url = https://github.com/kana/vim-textobj-user
