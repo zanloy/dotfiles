@@ -8,9 +8,6 @@
 [submodule "vim/pack/improvements/start/vim-commentary"]
   path = vim/pack/improvements/start/vim-commentary
   url = https://github.com/tpope/vim-commentary.git
-[submodule "vim/pack/improvements/start/vim-addon-mw-utils"]
-  path = vim/pack/improvements/start/vim-addon-mw-utils
-  url = https://github.com/MarcWeber/vim-addon-mw-utils.git
 [submodule "vim/pack/improvements/start/vim-auto-save"]
   path = vim/pack/improvements/start/vim-auto-save
   url = https://github.com/907th/vim-auto-save
