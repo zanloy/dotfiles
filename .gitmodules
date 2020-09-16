@@ -5,9 +5,6 @@
 [submodule "vim/pack/appearances/start/vim-gitgutter"]
   path = vim/pack/appearances/start/vim-gitgutter
   url = https://github.com/airblade/vim-gitgutter.git
-[submodule "vim/pack/ruby/start/vim-bundler"]
-  path = vim/pack/ruby/start/vim-bundler
-  url = https://github.com/tpope/vim-bundler
 [submodule "vim/pack/ruby/start/vim-change-hash-syntax"]
   path = vim/pack/ruby/start/vim-change-hash-syntax
   url = https://github.com/ck3g/vim-change-hash-syntax
