@@ -284,6 +284,3 @@
 [submodule "vim/pack/colorschemes/start/vim-colors-solarized"]
 	path = vim/pack/colorschemes/start/vim-colors-solarized
 	url = https://github.com/altercation/vim-colors-solarized.git
-[submodule "tmux/oh-my-tmux"]
-	path = tmux/oh-my-tmux
-	url = https://github.com/gpakosz/.tmux.git
