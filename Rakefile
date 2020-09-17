@@ -36,10 +36,10 @@ task :install do
   install_files(Dir['tmux/*'] - ['tmux/oh-my-tmux'])
   print "\n"
 
-  # Install Vim files
-  dot_print '[+] Installing vim files', newline: false
-  install_files ['vim', 'vimrc']
-  print "\n"
+  ## Install Vim files
+  #dot_print '[+] Installing vim files', newline: false
+  #install_files ['vim', 'vimrc']
+  #print "\n"
 
   # Install fonts
   Rake::Task['install_fonts'].invoke
