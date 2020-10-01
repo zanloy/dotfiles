@@ -1,3 +1,3 @@
-if [[ -x thefuck ]]; then
+if [[ -x $(which thefuck) ]]; then
   eval "$(thefuck --alias)"
 fi
