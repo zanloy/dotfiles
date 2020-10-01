@@ -21,6 +21,7 @@ alias -g L="| less"
 alias -g N="| /dev/null"
 alias -g S='| sort'
 alias -g G='| grep' # now you can do: ls foo G something
+alias -g Y='-o yaml | bat --language=yaml' # eg: kubectl get pod pod-name Y
 
 # dpkg/apt support
 if [[ -x apt ]]; then
