@@ -76,3 +76,8 @@ alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall F
 
 # Homebrew
 alias brewu='brew update && brew upgrade && brew cleanup && brew prune && brew doctor'
+
+# View CSV from command line
+function pretty-csv {
+  column -t -s, -n "$@" | less -F -S -X -K
+}
