@@ -44,8 +44,8 @@ task :install do
   # Install fonts
   Rake::Task['install_fonts'].invoke
 
-  # Install oh-my-zsh
-  Rake::Task['install_oh-my-zsh'].invoke
+  # Install ohmyzsh
+  Rake::Task['install_ohmyzsh'].invoke
 
   # Install terminal specific configs
   Rake::Task['install_terms'].invoke
@@ -94,8 +94,8 @@ task :fix_head do
   end
 end
 
-desc 'Install oh-my-zsh Framework'
-task :install_oh-my-zsh do
+desc 'Install ohmyzsh Framework'
+task :install_ohmyzsh do
   # TODO: Do this.
 end
 
