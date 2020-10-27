@@ -3,7 +3,7 @@
 require 'rake'
 require 'fileutils'
 
-# Let's check if colorize is installed and use it
+# Let's check if colorize is installed and use it.
 begin
   require 'colorize'
 rescue LoadError
@@ -20,9 +20,12 @@ ARCH =
     raise 'This script only works on Mac or Linux'
   end
 
+task :default => [:install] # Use install as default task.
+
 desc 'Symlink all our dotfiles into their positions in $HOME'
 task :install do
-  $stdout.sync = true # To keep the display buffer synced
+  $stdout.sync = true # To keep the display buffer synced.
+  at_exit { $stdout.sync = false } # Ensure we turn it off after Rake has run.
   dot_print '[*] Installing .dotfiles', color: :light_blue
 
   %w[git irb ruby].each do |element|
@@ -41,13 +44,13 @@ task :install do
   #install_files ['vim', 'vimrc']
   #print "\n"
 
-  # Install fonts
+  # Install fonts.
   Rake::Task['install_fonts'].invoke
 
-  # Install ohmyzsh
+  # Install oh-my-zsh.
   Rake::Task['install_ohmyzsh'].invoke
 
-  # Install terminal specific configs
+  # Install terminal specific configs.
   Rake::Task['install_terms'].invoke
 end
 
@@ -64,7 +67,7 @@ task :install_fonts do
   Dir['fonts/*'].each do |font|
     filename = File.basename(font)
     dest = File.join(font_dir, filename)
-    dot_print "[-] Installing #{filename}...", newline: false
+    dot_print "[>] Installing #{filename}...", newline: false
     if File.exists?(dest)
       dot_print 'already installed.'
     else
@@ -96,38 +99,49 @@ end
 
 desc 'Install ohmyzsh Framework'
 task :install_ohmyzsh do
-  # TODO: Do this.
-end
+  # Verify if oh-my-zsh is already installed.
+  if Dir.exists?(File.join(ENV['HOME'], '.oh-my-zsh'))
+    dot_print "[+] oh-my-zsh is already installed...skipped"
+    next # Exit task
+  end
 
-desc 'Install Prezto Zsh Framework'
-task :install_prezto do
-  dot_print "[*] Installing Prezto", color: :light_blue
+  dot_print "[+] Installing oh-my-zsh..."
+  result = system({ 'RUNZSH' => 'no' }, 'sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"')
 
-  `ln -nfs "$HOME/.dotfiles/zsh/prezto" "${ZDOTDIR:-$HOME}/.zprezto"`
+  unless result
+    dot_print "[!] Error installing oh-my-zsh.", color: :red
+    next # Exit task
+  end
 
-  # The prezto runcoms are only going to be installed if zprezto has never been installed
-  runcoms = Dir.glob('zsh/prezto/runcoms/z*').reject { |r| ['zshrc', 'zpreztorc'].include? File.basename(r) }
-  install_files(runcoms, quiet: true)
+  dot_print "[-] Done"
 
-  dot_print "[+] Overriding the default ~/.zshrc with ours"
-  `ln -nfs "$HOME/.dotfiles/zsh/zshrc" "$HOME/.zshrc"`
+  # Install Powerlevel10k theme
+  dot_print "[+] Installing Powerlevel10k (oh-my-zsh theme)...", newline: false
+  system 'git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k'
+  # Set Powerlevel10k as oh-my-zsh theme
+  zshrc = File.join(ENV['HOME'], '.zshrc')
+  text = <<~DONE
+    # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.                                                               # Initialization code that may require console input (password prompts, [y/n]                                                                  # confirmations, etc.) must go above this block; everything else may go below.                                                                 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then                                                           source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"                                                                  fi
 
-  dot_print "[+] Overriding the default ~/.zpreztorc with ours"
-  `ln -nfs "$HOME/.dotfiles/zsh/prezto-override/zpreztorc" "${ZDOTDIR:-$HOME}/.zpreztorc"`
+    #{File.read(zshrc)}
+    
+    # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.                                                                               [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+    DONE
+  text.gsub! 'ZSH_THEME="robbyrussell"', 'ZSH_THEME="powerlevel10k/powerlevel10k"'
+  File.open(zshrc, 'w') { |file| file.puts text }
+  dot_print 'done.'
+  # Symlink p10k config file to $HOME
+  File.symlink File.join(ENV['HOME'], '.dotfiles', 'p10k.zsh'), File.join(ENV['HOME'], '.p10k.zsh')
 
-  if "#{ENV['SHELL']}".include? 'zsh' then
-    dot_print "[!] Zsh is already configured as your shell of choice. Restart your session to load the new settings", color: :red
-  else
-    dot_print "[+] Setting zsh as your default shell"
-    if File.exists?("/usr/local/bin/zsh")
-      if File.readlines("/private/etc/shells").grep("/usr/local/bin/zsh").empty?
-        dot_print "[+] Adding zsh to standard shell list"
-        `echo "/usr/local/bin/zsh" | sudo tee -a /private/etc/shells`
-      end
-      `chsh -s /usr/local/bin/zsh`
-    else
-      `chsh -s /bin/zsh`
-    end
+  # Add startup script to oh-my-zsh to load .dotfile startup scripts
+  File.open(File.join(ENV['HOME'], '.oh-my-zsh', 'custom', 'dotfiles.zsh'), 'w') do |file|
+    file.puts <<~DONE
+      if [[ -d ~/.dotfiles/zsh ]]; then
+        for x in ~/.dotfiles/zsh/*.zsh; do
+          source "$x"
+        done
+      fi
+    DONE
   end
 end
 
