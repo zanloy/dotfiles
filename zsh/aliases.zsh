@@ -16,11 +16,12 @@ alias -g ...='../..'
 alias -g ....='../../..'
 alias -g .....='../../../..'
 alias -g C='| wc -l'
+alias -g G='| grep' # now you can do: ls foo G something
 alias -g H='| head'
+alias -g J='-o json | bat --language=json' # eg: kubectl get pod pod-name J
 alias -g L="| less"
 alias -g N="| /dev/null"
 alias -g S='| sort'
-alias -g G='| grep' # now you can do: ls foo G something
 alias -g Y='-o yaml | bat --language=yaml' # eg: kubectl get pod pod-name Y
 
 # dpkg/apt support
