@@ -7,6 +7,11 @@ if [ -d "$HOME/go/bin" ]; then
   path+=("$HOME/go/bin")
 fi
 
+# rbenv
+if [ -d "$HOME/.rbenv/bin" ]; then
+  path+=("$HOME/.rbenv/bin")
+fi
+
 # snap
 if [ -d '/snap/bin' ]; then
   path+=('/snap/bin')
