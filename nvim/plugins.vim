@@ -12,6 +12,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'christoomey/vim-tmux-runner'
 " Syntax and generic language specific
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'towolf/vim-helm'
 Plug 'slim-template/vim-slim'
 Plug 'tpope/vim-surround'
