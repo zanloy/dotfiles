@@ -3,6 +3,15 @@ if [[ -x "$(command -v kubectl)" ]]; then
   alias k='kubectl'
   complete -F __start_kubectl k
   alias kns="kubectl config set-context --current --namespace"
+  # Kubectl aliases
+  alias kg="kubectl get"
+  alias kgp="kubectl get pods"
+  alias kgd="kubectl get daemonsets"
+  alias kgc="kubectl get configmaps"
+  alias kgi="kubectl get ingress"
+  alias kgs="kubectl get services"
+  alias kgd="kubectl get deployments"
+
   alias dev8='kubectl config use-context dev8'
   alias stage8='kubectl config use-context stage8'
   alias prod8='kubectl config use-context prod8'
