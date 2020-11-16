@@ -48,6 +48,9 @@ ke() {
   fi
 }
 
+# Find a pod based on regex. Could this be an alias? Sure.
+kfind-pod() { kubectl get pods --all-namespaces | grep $1 }
+
 # List the pods that should be targets for a service. I say should because this doesn't check readiness.
 kpods-for-service() {
   k get pods --selector $(k get service $1 -o json | jq -r '.spec.selector | to_entries | "\(.[0].key)=\(.[0].value)"')
