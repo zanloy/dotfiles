@@ -25,10 +25,10 @@ alias -g S='| sort'
 alias -g Y='-o yaml | bat --language=yaml' # eg: kubectl get pod pod-name Y
 
 # dpkg/apt support
-if [[ -x apt ]]; then
+if [[ -x $(which apt) ]]; then
   alias apt='sudo apt'
 fi
-if [[ -x dpkg ]]; then
+if [[ -x $(which dpkg) ]]; then
   alias dpkg='sudo dpkg'
   alias dgs='dpkg --get-selections | grep'
 fi
