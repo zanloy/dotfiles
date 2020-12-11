@@ -68,6 +68,16 @@ set gdefault             " assume /g on :s substitutions
 set ignorecase smartcase " ignore case in search if all lowercase
 set incsearch            " search incrementally
 
-" Using system clipboard
+" Use system clipboard
 vnoremap <leader>y "+y
 nnoremap <leader>y "+y
+
+" Remember last position in file
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
+
+" Do not reindent yaml files on : char (You can force reindent with CTRL+F)
+if has("autocmd")
+  au FileType yaml setl indentkeys-=<:>
+endif
