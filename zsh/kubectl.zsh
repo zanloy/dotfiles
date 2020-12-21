@@ -2,6 +2,9 @@ if [[ -x "$(command -v kubectl)" ]]; then
   source <(kubectl completion zsh)
   alias k='kubectl'
   complete -F __start_kubectl k
+  # Allow you to switch context with: `kctx prod`
+  alias kctx="kubectl config use-context"
+  # Allow you to switch the current namespace with: `kns logging`
   alias kns="kubectl config set-context --current --namespace"
   # Kubectl aliases
   alias kg="kubectl get"
