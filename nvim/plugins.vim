@@ -1,6 +1,7 @@
 " Plugins
 let mapleader = ','
 call plug#begin('~/.config/nvim/plugged')
+Plug 'kevinhwang91/nvim-bqf'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'roxma/nvim-yarp'          " Required before deoplete
 Plug 'roxma/vim-hug-neovim-rpc' " Required before deoplete
