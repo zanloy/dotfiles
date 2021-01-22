@@ -1,3 +1,11 @@
+" First and foremost, we don't care about backwards compatibility and setting
+" this off fixes issues with trying to.
+set nocompatible
+
+" We like modelines because a lot of config files do not have the appropriate
+" extension (eg: .yml) for n/vim to know how to do syntax/highlighting.
+set modeline
+
 " Uncomment if you want to load legacy vim settings.
 "set runtimepath^=~/.vim
 "let &packpath=&runtimepath
@@ -56,6 +64,7 @@ set softtabstop=2
 
 " Navigation
 set number " give us line numbers on left
+set splitright " open splits to the right
 
 " FileTypes!
 augroup filetypes
