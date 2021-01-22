@@ -8,22 +8,23 @@ if [[ -x "$(command -v kubectl)" ]]; then
   alias kns="kubectl config set-context --current --namespace"
   # Kubectl aliases
   alias kg="kubectl get"
-  alias kgp="kubectl get pods"
-  alias kgd="kubectl get daemonsets"
   alias kgc="kubectl get configmaps"
-  alias kgi="kubectl get ingress"
-  alias kgs="kubectl get services"
+  alias kgds="kubectl get daemonsets"
   alias kgd="kubectl get deployments"
+  alias kgi="kubectl get ingress"
+  alias kgp="kubectl get pods"
+  alias kgs="kubectl get services"
+  alias kgss="kubectl get statefulset"
 
-  alias dev8='kubectl config use-context dev8'
-  alias stage8='kubectl config use-context stage8'
-  alias prod8='kubectl config use-context prod8'
-  alias -- find-pod="kubectl get pods --all-namespaces | grep "
-  alias -- find-pods-on-node='tmp_func(){ kubectl get pods --all-namespaces -o wide --field-selector spec.nodeName="$1"; unset -f tmp_func; }; tmp_func'
+  alias dev='kubectl config use-context dev8'
+  alias stage='kubectl config use-context stage8'
+  alias prod='kubectl config use-context prod8'
+  alias -- kfind-pod="kubectl get pods --all-namespaces | grep "
+  alias -- kfind-pods-on-node='tmp_func(){ kubectl get pods --all-namespaces -o wide --field-selector spec.nodeName="$1"; unset -f tmp_func; }; tmp_func'
 fi
 
 # Use microk8s by executing `use-mk`
-use-mk() {
+use-mk8s() {
   if [[ -x /snap/bin/microk8s.kubectl ]]; then
     source <(/snap/bin/microk8s.kubectl completion zsh)
     complete -F __start_kubectl k
@@ -50,9 +51,6 @@ ke() {
     kubectl exec -it "$1" -- ${2:-/bin/sh}
   fi
 }
-
-# Find a pod based on regex. Could this be an alias? Sure.
-kfind-pod() { kubectl get pods --all-namespaces | grep $1 }
 
 # List the pods that should be targets for a service. I say should because this doesn't check readiness.
 kpods-for-service() {
