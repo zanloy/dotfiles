@@ -1,2 +1,4 @@
 # Import the github cli auto-completions
-source <(gh completion --shell zsh)
+if [[ -x $(which gh) ]]; then
+  source <(gh completion --shell zsh)
+fi

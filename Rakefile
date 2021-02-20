@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'rake'
 require 'fileutils'
 
@@ -100,48 +98,61 @@ end
 desc 'Install ohmyzsh Framework'
 task :install_ohmyzsh do
   # Verify if oh-my-zsh is already installed.
-  if Dir.exists?(File.join(ENV['HOME'], '.oh-my-zsh'))
-    dot_print "[+] oh-my-zsh is already installed...skipped"
-    next # Exit task
-  end
+  #if Dir.exists?(File.join(ENV['HOME'], '.oh-my-zsh'))
+  #  dot_print "[+] oh-my-zsh is already installed...skipped"
+  #  next # Exit task
+  #end
 
-  dot_print "[+] Installing oh-my-zsh..."
-  result = system({ 'RUNZSH' => 'no' }, 'sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"')
+  #dot_print "[+] Installing oh-my-zsh..."
+  #result = system({ 'RUNZSH' => 'no' }, 'sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"')
 
-  unless result
-    dot_print "[!] Error installing oh-my-zsh.", color: :red
-    next # Exit task
-  end
+  #unless result
+  #  dot_print "[!] Error installing oh-my-zsh.", color: :red
+  #  next # Exit task
+  #end
 
-  dot_print "[-] Done"
+  #dot_print "[-] Done"
 
   # Install Powerlevel10k theme
   dot_print "[+] Installing Powerlevel10k (oh-my-zsh theme)...", newline: false
-  system 'git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k'
+  #system 'git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k'
   # Set Powerlevel10k as oh-my-zsh theme
   zshrc = File.join(ENV['HOME'], '.zshrc')
   text = <<~DONE
-    # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.                                                               # Initialization code that may require console input (password prompts, [y/n]                                                                  # confirmations, etc.) must go above this block; everything else may go below.                                                                 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then                                                           source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"                                                                  fi
+    # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+    # Initialization code that may require console input (password prompts, [y/n]
+    # confirmations, etc.) must go above this block; everything else may go below.
+    if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+      source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+    fi
 
     #{File.read(zshrc)}
-    
-    # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.                                                                               [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-    DONE
+
+    # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+    [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+  DONE
   text.gsub! 'ZSH_THEME="robbyrussell"', 'ZSH_THEME="powerlevel10k/powerlevel10k"'
   File.open(zshrc, 'w') { |file| file.puts text }
   dot_print 'done.'
+
   # Symlink p10k config file to $HOME
-  File.symlink File.join(ENV['HOME'], '.dotfiles', 'p10k.zsh'), File.join(ENV['HOME'], '.p10k.zsh')
+  path = File.join(ENV['HOME'], '.p10k.zsh')
+  unless File.exists? path
+    File.symlink File.join(ENV['HOME'], '.dotfiles', 'p10k.zsh'), path
+  end
 
   # Add startup script to oh-my-zsh to load .dotfile startup scripts
-  File.open(File.join(ENV['HOME'], '.oh-my-zsh', 'custom', 'dotfiles.zsh'), 'w') do |file|
-    file.puts <<~DONE
-      if [[ -d ~/.dotfiles/zsh ]]; then
-        for x in ~/.dotfiles/zsh/*.zsh; do
-          source "$x"
-        done
-      fi
-    DONE
+  path = File.join(ENV['HOME'], '.oh-my-zsh', 'custom', 'dotfiles.zsh')
+  unless File.exists? path
+    File.open(path, 'w') do |file|
+      file.puts <<~DONE
+        if [[ -d ~/.dotfiles/zsh ]]; then
+          for x in ~/.dotfiles/zsh/*.zsh; do
+            source "$x"
+          done
+        fi
+      DONE
+    end
   end
 end
 
