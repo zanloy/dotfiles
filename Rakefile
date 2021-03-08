@@ -34,7 +34,6 @@ task :install do
 
   # tmux
   dot_print "[+] Installing tmux files", newline: false
-  install_files(Dir['tmux/*'] - ['tmux/oh-my-tmux'])
   print "\n"
 
   ## Install Vim files
@@ -95,64 +94,95 @@ task :fix_head do
   end
 end
 
-desc 'Install ohmyzsh Framework'
-task :install_ohmyzsh do
-  # Verify if oh-my-zsh is already installed.
-  #if Dir.exists?(File.join(ENV['HOME'], '.oh-my-zsh'))
-  #  dot_print "[+] oh-my-zsh is already installed...skipped"
-  #  next # Exit task
-  #end
+desc 'Install nvim'
+task :install_nvim do
+end
 
-  #dot_print "[+] Installing oh-my-zsh..."
-  #result = system({ 'RUNZSH' => 'no' }, 'sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"')
-
-  #unless result
-  #  dot_print "[!] Error installing oh-my-zsh.", color: :red
-  #  next # Exit task
-  #end
-
-  #dot_print "[-] Done"
-
-  # Install Powerlevel10k theme
-  dot_print "[+] Installing Powerlevel10k (oh-my-zsh theme)...", newline: false
-  #system 'git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k'
-  # Set Powerlevel10k as oh-my-zsh theme
-  zshrc = File.join(ENV['HOME'], '.zshrc')
-  text = <<~DONE
-    # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-    # Initialization code that may require console input (password prompts, [y/n]
-    # confirmations, etc.) must go above this block; everything else may go below.
-    if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-      source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-    fi
-
-    #{File.read(zshrc)}
-
-    # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-    [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-  DONE
-  text.gsub! 'ZSH_THEME="robbyrussell"', 'ZSH_THEME="powerlevel10k/powerlevel10k"'
-  File.open(zshrc, 'w') { |file| file.puts text }
-  dot_print 'done.'
-
-  # Symlink p10k config file to $HOME
-  path = File.join(ENV['HOME'], '.p10k.zsh')
-  unless File.exists? path
-    File.symlink File.join(ENV['HOME'], '.dotfiles', 'p10k.zsh'), path
+desc 'Install oh-my-tmux Framework'
+task :install_ohmytmux do
+  # Check if oh-my-tmux directory already exists.
+  if Dir.exists? File.expand_path('~/.oh-my-tmux')
+    dot_print '[+] oh-my-tmux is already installed at ~/.oh-my-tmux... skipping.'
+    next
   end
 
-  # Add startup script to oh-my-zsh to load .dotfile startup scripts
-  path = File.join(ENV['HOME'], '.oh-my-zsh', 'custom', 'dotfiles.zsh')
-  unless File.exists? path
-    File.open(path, 'w') do |file|
-      file.puts <<~DONE
-        if [[ -d ~/.dotfiles/zsh ]]; then
-          for x in ~/.dotfiles/zsh/*.zsh; do
-            source "$x"
-          done
-        fi
-      DONE
+  dot_print '[+] Installing oh-my-tmux...'
+
+  result = system('git clone https://github.com/gpakosz/.tmux.git ~/.oh-my-tmux')
+
+  unless result
+    dot_print '[!] Error installing oh-my-tmux.', color: :red
+    next
+  end
+
+  dot_print '[*] Configuring oh-my-tmux...', newline: false
+  FileUtils.symlink File.expand_path('~/.oh-my-tmux/.tmux.conf'), File.expand_path('~/.tmux.conf'), force: true
+  install_files(Dir['tmux/*'])
+
+  dot_print 'done.'
+end
+
+desc 'Install oh-my-zsh Framework'
+task :install_ohmyzsh do
+  # Verify if oh-my-zsh is already installed.
+  if Dir.exists?(File.join(ENV['HOME'], '.oh-my-zsh'))
+    dot_print "[+] oh-my-zsh is already installed... skipping."
+  else
+    dot_print "[+] Installing oh-my-zsh..."
+    result = system({ 'RUNZSH' => 'no' }, 'sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"')
+
+    if result
+      dot_print "[-] Done"
+    else
+      dot_print "[!] Error installing oh-my-zsh.", color: :red
     end
+  end
+
+  # Install Powerlevel10k theme
+  if Dir.exists? File.expand_path('~/.oh-my-zsh/custom/themes')
+    dot_print "[+] Installing Powerlevel10k (oh-my-zsh theme)...", newline: false
+    system 'git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k'
+    # Set Powerlevel10k as oh-my-zsh theme
+    zshrc = File.join(ENV['HOME'], '.zshrc')
+    text = <<~DONE
+      # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+      # Initialization code that may require console input (password prompts, [y/n]
+      # confirmations, etc.) must go above this block; everything else may go below.
+      if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+        source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+      fi
+
+      #{File.read(zshrc)}
+
+      # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+      [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+    DONE
+    text.gsub! 'ZSH_THEME="robbyrussell"', 'ZSH_THEME="powerlevel10k/powerlevel10k"'
+    File.open(zshrc, 'w') { |file| file.puts text }
+    dot_print 'done.'
+
+    # Symlink p10k config file to $HOME
+    path = File.join(ENV['HOME'], '.p10k.zsh')
+    unless File.exists? path
+      File.symlink File.expand_path('~/.dotfiles/p10k.zsh'), File.expand_path('~/p10k.zsh'), force: true
+    end
+
+    # Add startup script to oh-my-zsh to load .dotfile startup scripts
+    path = File.expand_path('~/.oh-my-zsh/custom/dotfiles.zsh')
+    unless File.exists? path
+      File.open(path, 'w') do |file|
+        file.puts <<~DONE
+          if [[ -d ~/.dotfiles/zsh ]]; then
+            for x in ~/.dotfiles/zsh/*.zsh; do
+              source "$x"
+            done
+          fi
+        DONE
+      end
+    end
+    dot_print '[-] Done.'
+  else
+    dot_print '[+] Powerlevel10k already installed... skipping.'
   end
 end
 
