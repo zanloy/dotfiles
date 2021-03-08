@@ -27,22 +27,19 @@ task :install do
   dot_print '[*] Installing .dotfiles', color: :light_blue
 
   %w[git irb ruby].each do |element|
-    dot_print "[+] Installing #{element} files", newline: false
+    dot_print "[+] Installing #{element} files", color: :green, newline: false
     install_files(Dir["#{element}/*"])
     print "\n"
   end
 
-  # tmux
-  dot_print "[+] Installing tmux files", newline: false
-  print "\n"
-
-  ## Install Vim files
-  #dot_print '[+] Installing vim files', newline: false
-  #install_files ['vim', 'vimrc']
-  #print "\n"
+  # Install Neovim.
+  Rake::Task['install_nvim'].invoke
 
   # Install fonts.
   Rake::Task['install_fonts'].invoke
+
+  # Install oh-my-tmux.
+  Rake::Task['install_ohmytmux'].invoke
 
   # Install oh-my-zsh.
   Rake::Task['install_ohmyzsh'].invoke
@@ -96,6 +93,37 @@ end
 
 desc 'Install nvim'
 task :install_nvim do
+  dot_print '[+] Installing nvim.'
+
+  # Check if nvim config dir exists and create if not.
+  nvim_dir = File.expand_path('~/.config/nvim')
+  unless Dir.exists? nvim_dir
+    dot_print "[>] Created #{nvim_dir}."
+    Dir.mkdir(nvim_dir)
+  end
+
+  # Link our config files
+  install_files Dir['nvim/*'], dest_dir: nvim_dir, quiet: true
+
+  # Install vim-plug
+  plug_filename = File.expand_path('"${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim')
+  if File.exists? plug_filename
+    dot_print '[*] vim-plug already installed... skipping.'
+  else
+    dot_print '[*] Installing vim-plug.'
+    result = system(%q[sh -c 'curl -fsLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'])
+
+    if result
+      dot_print "[>] vim-plug installed to #{plug_filename}."
+      dot_print "[>] Installing vim plugins using vim-plug."
+      system('nvim -u ~/.config/nvim/plugins.vim +PlugInstall +qall')
+      dot_print "[-] Done.", color: :green
+    else
+      dot_print "[!] Error while trying to install vim-plug to #{plug_filename}"
+      next
+    end
+  end
+
 end
 
 desc 'Install oh-my-tmux Framework'
@@ -139,7 +167,9 @@ task :install_ohmyzsh do
   end
 
   # Install Powerlevel10k theme
-  if Dir.exists? File.expand_path('~/.oh-my-zsh/custom/themes')
+  if Dir.exists? File.expand_path('~/.oh-my-zsh/custom/themes/powerlevel10k')
+    dot_print '[+] Powerlevel10k is already installed... skipping.', color: :blue
+  else
     dot_print "[+] Installing Powerlevel10k (oh-my-zsh theme)...", newline: false
     system 'git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k'
     # Set Powerlevel10k as oh-my-zsh theme
@@ -181,8 +211,6 @@ task :install_ohmyzsh do
       end
     end
     dot_print '[-] Done.'
-  else
-    dot_print '[+] Powerlevel10k already installed... skipping.'
   end
 end
 
@@ -206,10 +234,10 @@ end
 
 private
 
-def install_files(files, method: :symlink, quiet: false)
+def install_files(files, dest_dir: Dir.home, method: :symlink, quiet: false)
   files.each do |file|
     source = "#{ENV['PWD']}/#{file}"
-    target = "#{ENV['HOME']}/.#{File.basename(file)}"
+    target = "#{dest_dir}/.#{File.basename(file)}"
     #puts "[+] #{source} -> #{target}"
 
     if File.exist?(target) && (!File.symlink?(target) || (File.symlink?(target) && File.readlink(target) != source))
@@ -217,10 +245,8 @@ def install_files(files, method: :symlink, quiet: false)
     end
 
     if method == :symlink
-      #`ln -nfs "#{source}" "#{target}"`
       FileUtils.symlink(source, target, force: true)
     else
-      #`cp -f "#{source}" "#{target}"`
       FileUtils.cp(source, target)
     end
 
