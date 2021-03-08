@@ -1,9 +1,7 @@
-" First and foremost, we don't care about backwards compatibility and setting
-" this off fixes issues with trying to.
-set nocompatible
-
 " We like modelines because a lot of config files do not have the appropriate
 " extension (eg: .yml) for n/vim to know how to do syntax/highlighting.
+" Note: This can be a security vulnerability if you work on a lot of untrusted
+"       files so use with caution.
 set modeline
 
 " Uncomment if you want to load legacy vim settings.
@@ -11,7 +9,7 @@ set modeline
 "let &packpath=&runtimepath
 "source ~/.vimrc
 
-" Load plugins and settings from config files
+" Load plugins and plugin settings from config files
 source ~/.config/nvim/plugins.vim
 source ~/.config/nvim/plugin_settings.vim
 
@@ -36,8 +34,11 @@ nnoremap tm :tabm<Space>
 nnoremap td :tabclose<CR>
 
 " *** Colors and syntax highlighting
+syntax on
 set termguicolors                " enable true (256 bit) colors
+set background=dark              " we fear the light
 colorscheme equinusocio_material " set our colorscheme
+set cursorline                   " highlight the current line
 
 " Display tabs and trailing spaces visually
 set list listchars=tab:\ \ ,trail:·
@@ -53,14 +54,18 @@ match ExtraWhitespace /\s\+$/
 autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 
-" Snippets
-nnoremap ,begin :-1read $HOME/.config/nvim/snippets/begin.rb<CR>o
-
 " Indentation and Spacing
 set expandtab
 set shiftwidth=2
 set tabstop=2
 set softtabstop=2
+
+" Code Folding
+set foldmethod=indent
+set nofoldenable
+
+" Diff
+set diffopt+=vertical
 
 " Navigation
 set number " give us line numbers on left

@@ -7,14 +7,20 @@ if [[ -x "$(command -v kubectl)" ]]; then
   # Allow you to switch the current namespace with: `kns logging`
   alias kns="kubectl config set-context --current --namespace"
   # Kubectl aliases
+  alias kdp="kubectl describe pod"
   alias kg="kubectl get"
-  alias kgc="kubectl get configmaps"
-  alias kgds="kubectl get daemonsets"
-  alias kgd="kubectl get deployments"
+  alias kgc="kubectl get configmap"
+  alias kgds="kubectl get daemonset"
+  alias kgd="kubectl get deployment"
+  alias kge="kubectl get events --sort-by='.metadata.lastTimestamp'"
   alias kgi="kubectl get ingress"
-  alias kgp="kubectl get pods"
-  alias kgs="kubectl get services"
+  alias kgn="kubectl get node"
+  alias kgns="kubectl get namespace"
+  alias kgp="kubectl get pod"
+  alias kgs="kubectl get service"
   alias kgss="kubectl get statefulset"
+  alias kwp="kubectl get pods --watch"
+  alias kwps="tmux split-window -dh 'watch -n 5 kubectl get pods'"
 
   alias dev='kubectl config use-context dev8'
   alias stage='kubectl config use-context stage8'

@@ -3,9 +3,8 @@
 require 'fileutils'
 
 def scan(dir)
-  exts = %w[mkv mp4 avi ts]
   files = []
-  exts.each do |ext|
+  %w[mkv mp4 avi ts].each do |ext|
     eval %Q[files += Dir.glob(File.join(dir, "**/*.#{ext}"))]
   end
   files.each do |file|
