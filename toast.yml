@@ -1,5 +1,5 @@
 ---
-image: ubuntu
+image: ubuntu:focal
 tasks:
   update_apt_cache:
     command: 'apt update'
@@ -7,7 +7,7 @@ tasks:
   install_deps:
     dependencies:
       - update_apt_cache
-    command: 'apt install -y git ruby tmux vim zsh'
+    command: 'apt install -y git ruby tmux neovim zsh'
 
   run:
     cache: false

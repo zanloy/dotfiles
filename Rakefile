@@ -32,11 +32,11 @@ task :install do
     print "\n"
   end
 
-  # Install Neovim.
-  Rake::Task['install_nvim'].invoke
-
   # Install fonts.
   Rake::Task['install_fonts'].invoke
+
+  # Install Neovim.
+  Rake::Task['install_nvim'].invoke
 
   # Install oh-my-tmux.
   Rake::Task['install_ohmytmux'].invoke
@@ -71,59 +71,46 @@ task :install_fonts do
   end
 end
 
-desc 'Fix detached HEAD issues with git submodules'
-task :fix_head do
-  dot_require :git
-  home = File.join('vim', 'pack')
-  get_subdirectories(home).each do |root|
-    get_subdirectories(File.join(root, 'start')).each do |dir|
-      repo = File.join(Dir.pwd, '.git', 'modules', dir)
-      idx = File.join(repo, 'index')
-      git = Git.open(dir, repository: repo, index: idx)
-      dot_print "Updating #{dir} (current_branch: #{git.branch})...", newline: false
-      if git.branch.name == 'master'
-        dot_print 'already at master.'
-      else
-        git.checkout 'master'
-        dot_print 'updated to master.'
-      end
-    end
-  end
-end
-
 desc 'Install nvim'
 task :install_nvim do
   dot_print '[+] Installing nvim.'
 
   # Check if nvim config dir exists and create if not.
-  nvim_dir = File.expand_path('~/.config/nvim')
+  config_dir = File.expand_path('~/.config')
+  unless Dir.exists? config_dir
+    Dir.mkdir(config_dir)
+    dot_print "[>] Created #{config_dir}."
+  end
+  nvim_dir = File.join(config_dir, 'nvim')
   unless Dir.exists? nvim_dir
-    dot_print "[>] Created #{nvim_dir}."
     Dir.mkdir(nvim_dir)
+    dot_print "[>] Created #{nvim_dir}."
   end
 
   # Link our config files
-  install_files Dir['nvim/*'], dest_dir: nvim_dir, quiet: true
+  dot_print '[>] Installing nvim config files...', newline: false
+  install_files Dir['nvim/*'], dest_dir: nvim_dir
+  dot_print 'done.'
 
   # Install vim-plug
   plug_filename = File.expand_path('"${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim')
   if File.exists? plug_filename
-    dot_print '[*] vim-plug already installed... skipping.'
+    dot_print '[>] vim-plug already installed... skipping.'
   else
-    dot_print '[*] Installing vim-plug.'
+    dot_print '[>] Installing vim-plug.'
     result = system(%q[sh -c 'curl -fsLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'])
 
     if result
       dot_print "[>] vim-plug installed to #{plug_filename}."
-      dot_print "[>] Installing vim plugins using vim-plug."
-      system('nvim -u ~/.config/nvim/plugins.vim +PlugInstall +qall')
-      dot_print "[-] Done.", color: :green
     else
       dot_print "[!] Error while trying to install vim-plug to #{plug_filename}"
       next
     end
   end
 
+  # Install vim plugins
+  dot_print "[>] Installing vim plugins using vim-plug."
+  system('nvim -u ~/.config/nvim/plugins.vim +PlugInstall +qall')
 end
 
 desc 'Install oh-my-tmux Framework'
