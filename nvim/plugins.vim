@@ -25,6 +25,7 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'towolf/vim-helm'
 Plug 'tpope/vim-surround'
+Plug 'ollykel/v-vim'
 " Ruby specific
 Plug 'vim-ruby/vim-ruby'      " Ruby
 Plug 'tpope/vim-rails'        " Rails
@@ -34,10 +35,11 @@ Plug 'thoughtbot/vim-rspec'   " rspec
 Plug 'ngmy/vim-rubocop'       " rubocop
 Plug 'slim-template/vim-slim' " slim
 " Colorschemes
-Plug 'dracula/vim', { 'as': 'dracula' }
-Plug 'chuling/equinusocio-material.vim'
-Plug 'morhetz/gruvbox'
-Plug 'cocopon/iceberg.vim'
-Plug 'joshdick/onedark.vim'
-Plug 'altercation/vim-colors-solarized'
+Plug 'dracula/vim', { 'as': 'dracula' } " Dracula
+Plug 'chuling/equinusocio-material.vim' " Equinusocio Material
+Plug 'morhetz/gruvbox'                  " Gruvbox
+Plug 'cocopon/iceberg.vim'              " Iceberg
+Plug 'joshdick/onedark.vim'             " OneDark
+Plug 'altercation/vim-colors-solarized' " Solarized
+Plug 'jacoborus/tender.vim'             " Tender
 call plug#end()
