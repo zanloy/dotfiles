@@ -131,7 +131,7 @@ task :install_ohmytmux do
   end
 
   dot_print '[*] Configuring oh-my-tmux...', newline: false
-  FileUtils.symlink File.expand_path('~/.oh-my-tmux/.tmux.conf'), File.expand_path('~/.tmux.conf'), force: true
+  FileUtils.symlink(File.expand_path('~/.oh-my-tmux/.tmux.conf'), File.expand_path('~/.tmux.conf'), force: true)
   install_files(Dir['tmux/*'])
 
   dot_print 'done.'
@@ -180,8 +180,8 @@ task :install_ohmyzsh do
 
     # Symlink p10k config file to $HOME
     path = File.join(ENV['HOME'], '.p10k.zsh')
-    unless File.exists? path
-      File.symlink File.expand_path('~/.dotfiles/p10k.zsh'), File.expand_path('~/p10k.zsh'), force: true
+    unless File.exists?(path)
+      FileUtils.symlink(File.expand_path('~/.dotfiles/p10k.zsh'), File.expand_path('~/.p10k.zsh'), force: true)
     end
 
     # Add startup script to oh-my-zsh to load .dotfile startup scripts
