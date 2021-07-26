@@ -138,3 +138,5 @@
   helper = store
 [diff "sopsdiffer"]
   textconv = sops -d
+[init]
+  defaultBranch = main
