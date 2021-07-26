@@ -109,7 +109,7 @@
   autosetupmerge = true
 [pull]
   # To preserve history during a rebase
-  rebase = preserve
+  rebase = true
 [push]
   # 'git push' will push the current branch to its tracking branch
   # the usual default is to push all branches
@@ -125,6 +125,7 @@
   # instead of a/b/c/d as prefixes for patches
   mnemonicprefix = true
   algorithm = patience
+  colorMoved = zebra
 [rerere]
   # Remember my merges
   # http://gitfu.wordpress.com/2008/04/20/git-rerere-rereremember-what-you-did-last-time/
@@ -140,3 +141,5 @@
   textconv = sops -d
 [init]
   defaultBranch = main
+[fetch]
+  prune = true
