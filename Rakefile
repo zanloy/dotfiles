@@ -153,30 +153,30 @@ task :install_ohmyzsh do
     end
   end
 
-  # Install Powerlevel10k theme
-  if Dir.exists? File.expand_path('~/.oh-my-zsh/custom/themes/powerlevel10k')
-    dot_print '[+] Powerlevel10k is already installed... skipping.', color: :blue
-  else
-    dot_print "[+] Installing Powerlevel10k (oh-my-zsh theme)...", newline: false
-    system 'git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k'
-    # Set Powerlevel10k as oh-my-zsh theme
-    zshrc = File.join(ENV['HOME'], '.zshrc')
-    text = <<~DONE
-      # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-      # Initialization code that may require console input (password prompts, [y/n]
-      # confirmations, etc.) must go above this block; everything else may go below.
-      if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-        source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-      fi
+  ## Install Powerlevel10k theme
+  #if Dir.exists? File.expand_path('~/.oh-my-zsh/custom/themes/powerlevel10k')
+  #  dot_print '[+] Powerlevel10k is already installed... skipping.', color: :blue
+  #else
+  #  dot_print "[+] Installing Powerlevel10k (oh-my-zsh theme)...", newline: false
+  #  system 'git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k'
+  #  # Set Powerlevel10k as oh-my-zsh theme
+  #  zshrc = File.join(ENV['HOME'], '.zshrc')
+  #  text = <<~DONE
+  #    # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+  #    # Initialization code that may require console input (password prompts, [y/n]
+  #    # confirmations, etc.) must go above this block; everything else may go below.
+  #    if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  #      source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+  #    fi
 
-      #{File.read(zshrc)}
+  #    #{File.read(zshrc)}
 
-      # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-      [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-    DONE
-    text.gsub! 'ZSH_THEME="robbyrussell"', 'ZSH_THEME="powerlevel10k/powerlevel10k"'
-    File.open(zshrc, 'w') { |file| file.puts text }
-    dot_print 'done.'
+  #    # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+  #    [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+  #  DONE
+  #  text.gsub! 'ZSH_THEME="robbyrussell"', 'ZSH_THEME="powerlevel10k/powerlevel10k"'
+  #  File.open(zshrc, 'w') { |file| file.puts text }
+  #  dot_print 'done.'
 
     # Symlink p10k config file to $HOME
     path = File.join(ENV['HOME'], '.p10k.zsh')
