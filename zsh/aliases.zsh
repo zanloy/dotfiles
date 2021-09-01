@@ -82,3 +82,6 @@ alias brewu='brew update && brew upgrade && brew cleanup && brew prune && brew d
 function pretty-csv {
   column -t -s, -n "$@" | less -F -S -X -K
 }
+
+# Default xclip to use system clipboard
+alias xclip='xclip -sel clip'

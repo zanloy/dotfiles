@@ -6,18 +6,33 @@ if [[ -x "$(command -v kubectl)" ]]; then
   alias kctx="kubectl config use-context"
   # Allow you to switch the current namespace with: `kns logging`
   alias kns="kubectl config set-context --current --namespace"
-  # Kubectl aliases
+  ### Kubectl aliases ###
+  # Describe
+  alias kd="kubectl describe"
+  alias kdd="kubectl describe deployment"
+  alias kdds="kubectl describe daemonset"
   alias kdp="kubectl describe pod"
+  alias kdss="kubectl describe statefulset"
+  # Delete
+  alias kdel="kubectl delete"
+  alias kdeld="kubectl delete deployment"
+  alias kdelds="kubectl delete daemonset"
+  alias kdelp="kubectl delete pod"
+  alias kdelss="kubectl delete statefulset"
+  # Get
   alias kg="kubectl get"
-  alias kgc="kubectl get configmap"
+  alias kgcm="kubectl get configmap"
+  alias kgcj="kubectl get cronjob"
   alias kgds="kubectl get daemonset"
   alias kgd="kubectl get deployment"
   alias kge="kubectl get events --sort-by='.metadata.lastTimestamp'"
   alias kgi="kubectl get ingress"
+  alias kgj="kubectl get job"
   alias kgn="kubectl get node"
   alias kgns="kubectl get namespace"
   alias kgp="kubectl get pod"
   alias kgs="kubectl get service"
+  alias kgsec="kubectl get secret"
   alias kgss="kubectl get statefulset"
   alias kwp="kubectl get pods --watch"
   alias kwps="tmux split-window -dh 'watch -n 5 kubectl get pods'"
@@ -25,6 +40,7 @@ if [[ -x "$(command -v kubectl)" ]]; then
   alias dev='kubectl config use-context dev8'
   alias stage='kubectl config use-context stage8'
   alias prod='kubectl config use-context prod8'
+  alias pve='kubectl config use-context pve'
   alias -- kfind-pod="kubectl get pods --all-namespaces | grep "
   alias -- kfind-pods-on-node='tmp_func(){ kubectl get pods --all-namespaces -o wide --field-selector spec.nodeName="$1"; unset -f tmp_func; }; tmp_func'
 fi
@@ -41,7 +57,7 @@ use-mk8s() {
 }
 
 # Execute into a pod either interactively or running a cmd
-ke() {
+kexec() {
   if [ $# -gt 2 ]; then
     # Assume we aren't running interactively
     kubectl exec "$1" -- ${@:2}

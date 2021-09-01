@@ -143,3 +143,4 @@
   defaultBranch = main
 [fetch]
   prune = true
+	templateDir = /home/zan/.config/git-template
