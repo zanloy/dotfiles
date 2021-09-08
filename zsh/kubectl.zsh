@@ -41,6 +41,8 @@ if [[ -x "$(command -v kubectl)" ]]; then
   alias stage='kubectl config use-context stage8'
   alias prod='kubectl config use-context prod8'
   alias pve='kubectl config use-context pve'
+  # Spin up temporary pod with debuging image
+  alias kdebug='k run tmp --restart=Never --rm -i --tty --image zanloy/netshoot-va -- /bin/bash'
   alias -- kfind-pod="kubectl get pods --all-namespaces | grep "
   alias -- kfind-pods-on-node='tmp_func(){ kubectl get pods --all-namespaces -o wide --field-selector spec.nodeName="$1"; unset -f tmp_func; }; tmp_func'
 fi
