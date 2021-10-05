@@ -3,9 +3,9 @@ if [[ -x "$(command -v kubectl)" ]]; then
   alias k='kubectl'
   complete -F __start_kubectl k
   # Allow you to switch context with: `kctx prod`
-  alias kctx="kubectl config use-context"
+  #alias kctx="kubectl config use-context" # this is replaced with a kubectl plugin
   # Allow you to switch the current namespace with: `kns logging`
-  alias kns="kubectl config set-context --current --namespace"
+  #alias kns="kubectl config set-context --current --namespace" # this is replaced with a kubectl plugin
   ### Kubectl aliases ###
   # Describe
   alias kd="kubectl describe"
@@ -36,6 +36,12 @@ if [[ -x "$(command -v kubectl)" ]]; then
   alias kgss="kubectl get statefulset"
   alias kwp="kubectl get pods --watch"
   alias kwps="tmux split-window -dh 'watch -n 5 kubectl get pods'"
+  # Plugins
+  if [[ -x $(which kubectl-custom_cols) ]]; then
+    alias kcc="kubectl custom-cols -o"
+    alias kcci="kubectl custom-cols -o images"
+    alias kccl="kubectl custom-cols -o limits"
+  fi
 
   alias dev='kubectl config use-context dev8'
   alias stage='kubectl config use-context stage8'
@@ -45,6 +51,12 @@ if [[ -x "$(command -v kubectl)" ]]; then
   alias kdebug='k run tmp --restart=Never --rm -i --tty --image zanloy/netshoot-va -- /bin/bash'
   alias -- kfind-pod="kubectl get pods --all-namespaces | grep "
   alias -- kfind-pods-on-node='tmp_func(){ kubectl get pods --all-namespaces -o wide --field-selector spec.nodeName="$1"; unset -f tmp_func; }; tmp_func'
+fi
+
+# Add krew to path if available
+if [[ -d "${KREW_ROOT:-$HOME/.krew}/bin" ]]; then
+  #export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+  path+=("${KREW_ROOT:-$HOME/.krew}/bin")
 fi
 
 # Use microk8s by executing `use-mk`

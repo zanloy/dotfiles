@@ -16,6 +16,8 @@ Plug 'itchyny/lightline.vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'christoomey/vim-tmux-runner'
 Plug 'SirVer/ultisnips'
+" Development plugins
+Plug 'michaelb/sniprun', {'do': 'bash install.sh'} " Allows running blocks of code in neovim
 " NerdTree and plugins
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'

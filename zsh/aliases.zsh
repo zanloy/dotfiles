@@ -85,3 +85,9 @@ function pretty-csv {
 
 # Default xclip to use system clipboard
 alias xclip='xclip -sel clip'
+
+# Always sudo systemctl
+alias systemctl='sudo systemctl'
+
+# Unlock bw
+alias unlockbw='source <(bwunlock.exp)'

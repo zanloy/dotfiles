@@ -39,6 +39,11 @@ let g:lightline = {
       \ 'colorscheme': 'equinusocio_material',
       \ }
 
+" sniprun
+nmap <leader>ff <Plug>SnipRun
+nmap <leader>f <Plug>SnipRunOperator
+vmap f <Plug>SnipRun
+
 " nerdtree
 " CTRL+N toggles nerdtree
 map <C-n> :NERDTreeToggle<CR>
