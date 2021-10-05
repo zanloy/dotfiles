@@ -42,6 +42,30 @@ if [[ -x "$(command -v kubectl)" ]]; then
     alias kcci="kubectl custom-cols -o images"
     alias kccl="kubectl custom-cols -o limits"
   fi
+  if [[ -x $(which kubectl-ipick) ]]; then
+    alias kp="kubectl ipick"
+    alias kpdd="kubectl ipick describe deployment"
+    alias kpdds="kubectl ipick describe daemonset"
+    alias kpdp="kubectl ipick describe pod"
+    alias kpds="kubectl ipick describe service"
+    alias kpdsec="kubectl ipick describe secret"
+    alias kpdss="kubectl ipick describe statefuleset"
+    alias kpe="kubectl ipick edit"
+    alias kpecm="kubectl ipick edit configmap"
+    alias kped="kubectl ipick edit deployment"
+    alias kpeds="kubectl ipick edit daemonset"
+    alias kpep="kubectl ipick edit pod"
+    alias kpes="kubectl ipick edit service"
+    alias kpesec="kubectl ipick edit secret"
+    alias kpess="kubectl ipick edit statefulset"
+    alias kpl="kubectl ipick logs"
+  fi
+  if [[ -x $(which kubectl-modify_secret) ]]; then
+    alias kmsec="kubectl modify-secret"
+  fi
+  if [[ -x $(which kubectl-node_shell) ]]; then
+    alias kns="kubectl node-shell"
+  fi
 
   alias dev='kubectl config use-context dev8'
   alias stage='kubectl config use-context stage8'
