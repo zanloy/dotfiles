@@ -6,34 +6,23 @@ if [[ -x "$(command -v kubectl)" ]]; then
   #alias kctx="kubectl config use-context" # this is replaced with a kubectl plugin
   # Allow you to switch the current namespace with: `kns logging`
   #alias kns="kubectl config set-context --current --namespace" # this is replaced with a kubectl plugin
+
   ### Kubectl aliases ###
-  # Describe
-  alias kd="kubectl describe"
-  alias kdd="kubectl describe deployment"
-  alias kdds="kubectl describe daemonset"
-  alias kdp="kubectl describe pod"
-  alias kdss="kubectl describe statefulset"
-  # Delete
-  alias kdel="kubectl delete"
-  alias kdeld="kubectl delete deployment"
-  alias kdelds="kubectl delete daemonset"
-  alias kdelp="kubectl delete pod"
-  alias kdelss="kubectl delete statefulset"
-  # Get
-  alias kg="kubectl get"
-  alias kgcm="kubectl get configmap"
-  alias kgcj="kubectl get cronjob"
-  alias kgds="kubectl get daemonset"
-  alias kgd="kubectl get deployment"
+  declare -a verbs
+  verbs=(d:describe del:delete e:edit g:get w:watch)
+  kinds=(cj:cronjob cm:configmap d:deployment ds:daemonset i:ingress j:job n:node ns:namespace p:pod s:service sec:secret ss:statefulset)
+
+  for verb in $verbs; do
+    aVerb=("${(s/:/)verb}")
+    eval "alias k${aVerb[1]}='kubectl ${aVerb[2]}'"
+    for kind in $kinds; do
+      aKind=("${(s/:/)kind}")
+      eval "alias k${aVerb[1]}${aKind[1]}='kubectl ${aVerb[2]} ${aKind[2]}'"
+    done
+  done
+
   alias kge="kubectl get events --sort-by='.metadata.lastTimestamp'"
-  alias kgi="kubectl get ingress"
-  alias kgj="kubectl get job"
-  alias kgn="kubectl get node"
-  alias kgns="kubectl get namespace"
-  alias kgp="kubectl get pod"
-  alias kgs="kubectl get service"
-  alias kgsec="kubectl get secret"
-  alias kgss="kubectl get statefulset"
+  alias ke="kubectl exec -it"
   alias kwp="kubectl get pods --watch"
   alias kwps="tmux split-window -dh 'watch -n 5 kubectl get pods'"
   # Plugins
@@ -44,24 +33,21 @@ if [[ -x "$(command -v kubectl)" ]]; then
   fi
   if [[ -x $(which kubectl-ipick) ]]; then
     alias kp="kubectl ipick"
-    alias kpdd="kubectl ipick describe deployment"
-    alias kpdds="kubectl ipick describe daemonset"
-    alias kpdp="kubectl ipick describe pod"
-    alias kpds="kubectl ipick describe service"
-    alias kpdsec="kubectl ipick describe secret"
-    alias kpdss="kubectl ipick describe statefuleset"
-    alias kpe="kubectl ipick edit"
-    alias kpecm="kubectl ipick edit configmap"
-    alias kped="kubectl ipick edit deployment"
-    alias kpeds="kubectl ipick edit daemonset"
-    alias kpep="kubectl ipick edit pod"
-    alias kpes="kubectl ipick edit service"
-    alias kpesec="kubectl ipick edit secret"
-    alias kpess="kubectl ipick edit statefulset"
+    for verb in $verbs; do
+      aVerb=("${(s/:/)verb}")
+      eval "alias kp${aVerb[1]}='kubectl ipick ${aVerb[2]}'"
+      for kind in $kinds; do
+        aKind=("${(s/:/)kind}")
+        eval "alias kp${aVerb[1]}${aKind[1]}='kubectl ipick ${aVerb[2]} ${aKind[2]} --'"
+      done
+    done
     alias kpl="kubectl ipick logs"
   fi
   if [[ -x $(which kubectl-modify_secret) ]]; then
     alias kmsec="kubectl modify-secret"
+  fi
+  if [[ -x $(which kubectl-view_secret) ]]; then
+    alias kvsec="kubectl view-secret"
   fi
   if [[ -x $(which kubectl-node_shell) ]]; then
     alias kns="kubectl node-shell"
@@ -79,20 +65,8 @@ fi
 
 # Add krew to path if available
 if [[ -d "${KREW_ROOT:-$HOME/.krew}/bin" ]]; then
-  #export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
   path+=("${KREW_ROOT:-$HOME/.krew}/bin")
 fi
-
-# Use microk8s by executing `use-mk`
-use-mk8s() {
-  if [[ -x /snap/bin/microk8s.kubectl ]]; then
-    source <(/snap/bin/microk8s.kubectl completion zsh)
-    complete -F __start_kubectl k
-    alias kns='mkubectl config set-context --current --namespace'
-  else
-    echo "ERROR: /snap/bin/microk8s.kubectl was not found."
-  fi
-}
 
 # Execute into a pod either interactively or running a cmd
 kexec() {

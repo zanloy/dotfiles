@@ -95,3 +95,9 @@ endif
 if has("autocmd")
   au FileType yaml setl indentkeys-=<:>
 endif
+
+" Use relative line numbers in command mode and absolute in insert mode
+if has("autocmd")
+  au BufEnter,FocusGained,InsertLeave,WinEnter * if &nu && mode() != "i" | set rnu   | endif
+  au BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu                  | set nornu | endif
+endif
