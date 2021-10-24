@@ -25,6 +25,7 @@ let g:ctrlp_custom_ignore = {
   \ }
 
 " deoplete
+let g:python3_host_prog = '/home/zan/.pyenv/versions/neovim/bin/python'
 let g:deoplete#enable_at_startup = 1
 " use ^j and ^k to select autocompletions, disabled because we use those
 " keybinds for tmux/split navigation
