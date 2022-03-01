@@ -28,6 +28,10 @@ _addPath "${HOME}/.dotfiles/bin"
 # golang
 _addPath "${HOME}/go/bin" true
 
+# linuxbrew
+_addPath "/home/linuxbrew/.linuxbrew/bin" true
+_addPath "${HOME}/.linuxbrew/bin" true
+
 # pyenv
 _addPath "${HOME}/.pyenv/bin" true
 _addPath "${HOME}/.pyenv/shims" true
