@@ -7,6 +7,11 @@ function _addPath {
     prepend=false
   fi
 
+  # check if path exists and is a directory
+  if [[ ! -d $1 ]]; then
+    return
+  fi
+
   # check if path already in $PATH
   case "$path" in
     *$1*) : ;; # already exists
@@ -31,6 +36,9 @@ _addPath "${HOME}/go/bin" true
 # linuxbrew
 _addPath "/home/linuxbrew/.linuxbrew/bin" true
 _addPath "${HOME}/.linuxbrew/bin" true
+
+# nodenv
+_addPath "${HOME}/.nodenv/bin" true
 
 # pyenv
 _addPath "${HOME}/.pyenv/bin" true

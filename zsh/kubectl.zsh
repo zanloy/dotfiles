@@ -22,7 +22,7 @@ if [[ -x "$(command -v kubectl)" ]]; then
   done
 
   alias kge="kubectl get events --sort-by='.metadata.lastTimestamp'"
-  alias ke="kubectl exec -it"
+  alias kexec="kubectl exec -it"
   alias kwp="kubectl get pods --watch"
   alias kwps="tmux split-window -dh 'watch -n 5 kubectl get pods'"
   # Plugins
@@ -70,7 +70,7 @@ if [[ -d "${KREW_ROOT:-$HOME/.krew}/bin" ]]; then
 fi
 
 # Execute into a pod either interactively or running a cmd
-kexec() {
+kexe() {
   if [ $# -gt 2 ]; then
     # Assume we aren't running interactively
     kubectl exec "$1" -- ${@:2}
