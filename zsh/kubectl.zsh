@@ -21,8 +21,8 @@ if [[ -x "$(command -v kubectl)" ]]; then
     done
   done
 
-  alias kge="kubectl get events --sort-by='.metadata.lastTimestamp'"
-  alias kexec="kubectl exec -it"
+  alias kge="kubectl get events --sort-by='.lastTimestamp'"
+  alias kex="kubectl exec -it"
   alias kwp="kubectl get pods --watch"
   alias kwps="tmux split-window -dh 'watch -n 5 kubectl get pods'"
   # Plugins
