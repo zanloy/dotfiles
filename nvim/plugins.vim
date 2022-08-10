@@ -28,6 +28,7 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'towolf/vim-helm'
 Plug 'tpope/vim-surround'
 Plug 'ollykel/v-vim'
+Plug 'jvirtanen/vim-hcl'
 " Ruby specific
 Plug 'vim-ruby/vim-ruby'      " Ruby
 Plug 'tpope/vim-rails'        " Rails
