@@ -106,27 +106,3 @@ Pry.commands.alias_command 'w', 'whereami'
 
 # Add pwd to load_path
 #$LOAD_PATH << File.dirname(File.realpath(Binding.source_location))
-
-# === COLOR CUSTOMIZATION ===
-# Everything below this line is for customizing colors, you have to use the ugly
-# color codes, but such is life.
-CodeRay.scan("example", :ruby).term # just to load necessary files
-
-# In CodeRay >= 1.1.0 token colors are defined as pre-escaped ANSI codes
-if Gem::Version.new(CodeRay::VERSION) >= Gem::Version.new('1.1.0')
-  require_relative "escaped_colors"
-else
-  require_relative "unescaped_colors"
-end
-
-module CodeRay
-  module Encoders
-    class Terminal < Encoder
-      # override old colors
-      TERM_TOKEN_COLORS.each_pair do |key, value|
-        TOKEN_COLORS[key] = value
-      end
-    end
-  end
-end
-
