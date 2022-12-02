@@ -1,5 +1,6 @@
 custom/zsh
 
+**/packer_compiled.lua
 vim/view
 *un~
 vim/.netrwhist

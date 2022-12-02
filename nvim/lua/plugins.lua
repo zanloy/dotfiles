@@ -73,7 +73,8 @@ function M.setup()
     }
 
     -- LSP Configuration
-    use { "williamboman/nvim-lsp-installer" }
+    use { "williamboman/mason.nvim" }
+    use { "williamboman/mason-lspconfig.nvim" }
     use {
       "jose-elias-alvarez/null-ls.nvim",
       config = function()

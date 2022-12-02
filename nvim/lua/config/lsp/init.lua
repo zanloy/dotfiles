@@ -34,7 +34,7 @@ local function setup_servers()
 end
 
 function M.setup()
-  setup_servers()
+  --setup_servers()
 end
 
 return M
