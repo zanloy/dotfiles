@@ -138,6 +138,10 @@
   email = zan.loy@gmail.com
 [credential]
   helper = store
+[credential "https://github.com"]
+  helper = !/usr/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+  helper = !/usr/bin/gh auth git-credential
 [diff "sopsdiffer"]
   textconv = sops -d
 [init]
