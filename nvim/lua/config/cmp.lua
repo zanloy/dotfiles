@@ -93,7 +93,7 @@ function M.setup()
         behavior = cmp.ConfirmBehavior.Replace,
         select = true,
       },
-      ["<CR>"] = cmp.mapping.confirm {
+      ["<Tab>"] = cmp.mapping.confirm {
         behavior = cmp.ConfirmBehavior.Replace,
         select = true,
       },
