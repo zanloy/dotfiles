@@ -24,7 +24,14 @@ if [[ -x "$(command -v kubectl)" ]]; then
   alias kge="kubectl get events --sort-by='.lastTimestamp'"
   alias kex="kubectl exec -it"
   alias kwp="kubectl get pods --watch"
-  alias kwps="tmux split-window -dh 'watch -n 5 kubectl get pods'"
+  #alias kwps="tmux split-window -dh 'watch -n 5 kubectl get pods'"
+  function kwps () {
+    if [[ -z $1 ]]; then
+      tmux split-window -dh watch -w -n 5 kubectl get pods
+    else
+      tmux split-window -dh "watch -w -n 5 'kubectl get pods | grep $1 | column -t'"
+    fi
+  }
   # Plugins
   if [[ -x $(which kubectl-custom_cols) ]]; then
     alias kcc="kubectl custom-cols -o"
@@ -53,10 +60,6 @@ if [[ -x "$(command -v kubectl)" ]]; then
     alias kns="kubectl node-shell"
   fi
 
-  alias dev='kubectl config use-context dev8'
-  alias stage='kubectl config use-context stage8'
-  alias prod='kubectl config use-context prod8'
-  alias pve='kubectl config use-context pve'
   # Spin up temporary pod with debuging image
   alias kdebug='k run tmp-netshoot --image container-registry.dev8.bip.va.gov/ops/netshoot-va -it --rm --restart=Never -- /bin/bash'
   alias kdebugd='k run tmp-netshoot --image zanloy/netshoot-va -it --rm --restart=Never -- /bin/bash'
