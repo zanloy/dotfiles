@@ -23,16 +23,16 @@ window:
 # Font configuration (change requires restart)
 font:
   normal:
-    family: Hasklug Nerd Font Mono
+    family: MesloLGS NF
     style: Regular
   bold:
-    family: Hasklug Nerd Font Mono
+    family: MesloLGS NF
     style: Bold
   italic:
-    family: Hasklug Nerd Font Mono
+    family: MesloLGS NF
     style: Italic
   bold_italic:
-    family: Hasklug Nerd Font Mono
+    family: MesloLGS NF
     style: Bold Italic
   size: 12.0
 

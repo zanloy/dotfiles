@@ -32,6 +32,7 @@ _addPath "${HOME}/.dotfiles/bin"
 
 # golang
 _addPath "${HOME}/go/bin" true
+_addPath "/usr/local/go/bin" true
 
 # linuxbrew
 _addPath "/home/linuxbrew/.linuxbrew/bin" true

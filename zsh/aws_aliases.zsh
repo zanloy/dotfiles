@@ -1,12 +1,16 @@
 # Aliases for AWS service
 
-# ECR
-alias ecrlogin='aws ecr get-login-password --region us-gov-west-1 | docker login --username AWS --password-stdin $(aws sts get-caller-identity --query Account --output text).dkr.ecr.us-gov-west-1.amazonaws.com'
-alias ecrpush='_ecrpush(){ docker push "$(aws sts get-caller-identity --query Account --output text)".dkr.ecr.us-gov-west-1.amazonaws.com/"$1"}; _ecrpush'
-alias ecrpull='_ecrpull(){ docker pull "$(aws sts get-caller-identity --query Account --output text)".dkr.ecr.us-gov-west-1.amazonaws.com/"$1"}; _ecrpull'
+# Setup env
+export AWS_DEFAULT_REGION='us-gov-west-1'
 
+# ECR
+alias ecrlogin='aws ecr get-login-password | docker login --username AWS --password-stdin $(aws sts get-caller-identity --query Account --output text).dkr.ecr.us-gov-west-1.amazonaws.com'
 function ecrpush(){
-  docker push "$(aws sts get-caller-identity --query Account --output text)".dkr.ecr.us-gov-west-1.amazonaws.com/"$1"
+  acct=$(aws sts get-caller-identity --query Account --output text)
+  remote_tag="$acct.dkr.ecr.us-gov-west-1.amazonaws.com/$1"
+  docker tag "$1" "$remote_tag"
+  docker push "$remote_tag"
+  docker rmi "$remote_tag"
 }
 
 function ecrpull(){

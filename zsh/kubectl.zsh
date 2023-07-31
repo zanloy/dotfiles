@@ -27,9 +27,9 @@ if [[ -x "$(command -v kubectl)" ]]; then
   #alias kwps="tmux split-window -dh 'watch -n 5 kubectl get pods'"
   function kwps () {
     if [[ -z $1 ]]; then
-      tmux split-window -dh watch -w -n 5 kubectl get pods
+      tmux split-window -dh watch -n 5 kubectl get pods
     else
-      tmux split-window -dh "watch -w -n 5 'kubectl get pods | grep $1 | column -t'"
+      tmux split-window -dh "watch -n 5 'kubectl get pods | grep $1 | column -t'"
     fi
   }
   # Plugins
