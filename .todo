@@ -1,3 +1,5 @@
 Add bin to path
 Setup yaml of symlinks
 Setup rake task to install/update
+Install oh-my-zsh in ~/.local/share/oh-my-zsh instead of default path
+Symlink .dotfiles/zsh to ~/.config/oh-my-zsh
