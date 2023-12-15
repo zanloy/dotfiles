@@ -139,22 +139,24 @@ end
 
 desc 'Install oh-my-zsh Framework'
 task :install_ohmyzsh do
+  ohmyzsh_dir = File.expand_path('~/.local/share/oh-my-zsh')
   # Verify if oh-my-zsh is already installed.
-  if Dir.exists?(File.join(ENV['HOME'], '.oh-my-zsh'))
+  if Dir.exists? ohmyzsh_dir
     dot_print "[+] oh-my-zsh is already installed... skipping."
-  else
-    dot_print "[+] Installing oh-my-zsh..."
-    result = system({ 'RUNZSH' => 'no' }, 'sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"')
+    next
+  end
 
-    if result
-      dot_print "[-] Done"
-    else
-      dot_print "[!] Error installing oh-my-zsh.", color: :red
-    end
+  dot_print "[+] Installing oh-my-zsh..."
+  result = system({ 'CHSH' => 'no', 'RUNZSH' => 'no', 'ZSH' => ohmyzsh_dir }, 'sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"')
+
+  if result
+    dot_print "[-] Done"
+  else
+    dot_print "[!] Error installing oh-my-zsh.", color: :red
   end
 
   # Add startup script to oh-my-zsh to load .dotfile startup scripts
-  path = File.expand_path('~/.oh-my-zsh/custom/dotfiles.zsh')
+  path = File.join(ohmyzsh_dir, 'custom/dotfiles.zsh')
   unless File.exists? path
     File.open(path, 'w') do |file|
       file.puts <<~DONE

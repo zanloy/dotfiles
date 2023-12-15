@@ -30,6 +30,9 @@ function _addPath {
 _addPath "${HOME}/.local/bin"
 _addPath "${HOME}/.dotfiles/bin"
 
+# goenv
+_addPath "${HOME}/.goenv/bin"
+
 # golang
 _addPath "${HOME}/go/bin" true
 _addPath "/usr/local/go/bin" true
