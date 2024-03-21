@@ -95,3 +95,8 @@ kexe() {
 kpods-for-service() {
   k get pods --selector $(k get service $1 -o json | jq -r '.spec.selector | to_entries | "\(.[0].key)=\(.[0].value)"')
 }
+
+# List the pod with the given IP address.
+kpod-with-ip() {
+  k get pods -A -o json | jq ".items[]|select(.status.podIP==\"$1\") | { \"namespace\": .metadata.namespace, \"pod\": .metadata.name}"
+}

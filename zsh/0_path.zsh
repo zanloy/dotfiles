@@ -1,11 +1,7 @@
 # path, the 0 in the filename causes this to load first
 
 function _addPath {
-  if [[ $2 = true || $2 = false ]]; then
-    prepend=$2
-  else
-    prepend=false
-  fi
+  prepend=${2:-false}
 
   # check if path exists and is a directory
   if [[ ! -d $1 ]]; then
@@ -43,13 +39,6 @@ _addPath "${HOME}/.linuxbrew/bin" true
 
 # nodenv
 _addPath "${HOME}/.nodenv/bin" true
-
-# pyenv
-_addPath "${HOME}/.pyenv/bin" true
-_addPath "${HOME}/.pyenv/shims" true
-
-# rbenv
-_addPath "${HOME}/.rbenv/bin" true
 
 # snap
 _addPath "${HOME}/snap/bin"
