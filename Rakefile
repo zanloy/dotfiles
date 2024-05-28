@@ -54,7 +54,7 @@ task :install_fonts do
   case ARCH
   when 'linux'
     font_dir = File.join(ENV['HOME'], '.fonts')
-    FileUtils.mkdir(font_dir) unless File.exists?(font_dir)
+    FileUtils.mkdir(font_dir) unless File.exist?(font_dir)
   when 'osx'
     font_dir = File.join(ENV['HOME'], 'Library', 'Fonts')
   end
@@ -62,7 +62,7 @@ task :install_fonts do
     filename = File.basename(font)
     dest = File.join(font_dir, filename)
     dot_print "[>] Installing #{filename}...", newline: false
-    if File.exists?(dest)
+    if File.exist?(dest)
       dot_print 'already installed.'
     else
       FileUtils.cp(font, dest)
@@ -77,12 +77,12 @@ task :install_nvim do
 
   # Check if nvim config dir exists and create if not.
   config_dir = File.expand_path('~/.config')
-  unless Dir.exists? config_dir
+  unless Dir.exist? config_dir
     Dir.mkdir(config_dir)
     dot_print "[>] Created #{config_dir}."
   end
   nvim_dir = File.join(config_dir, 'nvim')
-  unless Dir.exists? nvim_dir
+  unless Dir.exist? nvim_dir
     Dir.mkdir(nvim_dir)
     dot_print "[>] Created #{nvim_dir}."
   end
@@ -94,7 +94,7 @@ task :install_nvim do
 
   # Install vim-plug
   plug_filename = File.expand_path('"${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim')
-  if File.exists? plug_filename
+  if File.exist? plug_filename
     dot_print '[>] vim-plug already installed... skipping.'
   else
     dot_print '[>] Installing vim-plug.'
@@ -116,7 +116,7 @@ end
 desc 'Install oh-my-tmux Framework'
 task :install_ohmytmux do
   # Check if oh-my-tmux directory already exists.
-  if Dir.exists? File.expand_path('~/.oh-my-tmux')
+  if Dir.exist? File.expand_path('~/.oh-my-tmux')
     dot_print '[+] oh-my-tmux is already installed at ~/.oh-my-tmux... skipping.'
     next
   end
@@ -141,7 +141,7 @@ desc 'Install oh-my-zsh Framework'
 task :install_ohmyzsh do
   ohmyzsh_dir = File.expand_path('~/.local/share/oh-my-zsh')
   # Verify if oh-my-zsh is already installed.
-  if Dir.exists? ohmyzsh_dir
+  if Dir.exist? ohmyzsh_dir
     dot_print "[+] oh-my-zsh is already installed... skipping."
     next
   end
@@ -157,7 +157,7 @@ task :install_ohmyzsh do
 
   # Add startup script to oh-my-zsh to load .dotfile startup scripts
   path = File.join(ohmyzsh_dir, 'custom/dotfiles.zsh')
-  unless File.exists? path
+  unless File.exist? path
     File.open(path, 'w') do |file|
       file.puts <<~DONE
         if [[ -d ~/.dotfiles/zsh ]]; then
@@ -183,7 +183,7 @@ task :install_terms do
 
   # xfce4-terminal
   xfcerc = File.expand_path('~/.config/xfce4/terminal/terminalrc')
-  if File.exists?(xfcerc)
+  if File.exist?(xfcerc)
     termrc = File.join(terms_dir, 'xfce4', 'solarized-dark.rc')
     FileUtils.cp(termrc, xfcerc)
   end

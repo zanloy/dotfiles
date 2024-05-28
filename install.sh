@@ -19,7 +19,9 @@ fi
 if [ ! -d "$HOME/.dotfiles" ]; then
   echo "Installing .dotfiles..."
   git clone --depth=1 --recurse-submodules -j8 https://github.com/zanloy/dotfiles.git "$HOME/.dotfiles"
+  cd "${HOME}/.dotfiles"
   rake install
+  cd -
 else
   echo "~/.dotfiles is already installed"
 fi

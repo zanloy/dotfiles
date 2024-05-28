@@ -40,5 +40,8 @@ _addPath "${HOME}/.linuxbrew/bin" true
 # nodenv
 _addPath "${HOME}/.nodenv/bin" true
 
+# rust
+_addPath "${HOME}/.cargo/bin" true
+
 # snap
 _addPath "${HOME}/snap/bin"
