@@ -36,12 +36,12 @@ function M.setup()
     use { "wbthomason/packer.nvim" }
 
     -- Development
-    use {
-      "lewis6991/gitsigns.nvim",
-      config = function()
-        require("gitsigns").setup()
-      end,
-    }
+    --use {
+    --  "lewis6991/gitsigns.nvim",
+    --  config = function()
+    --    require("gitsigns").setup()
+    --  end,
+    --}
     use {
       "kyazdani42/nvim-tree.lua",
       event = "BufWinEnter",
@@ -191,14 +191,15 @@ function M.setup()
     use { "christoomey/vim-tmux-navigator" }
     use { "kevinhwang91/nvim-bqf", ft = "qf" }
     use { "ray-x/lsp_signature.nvim" }
-    use {
-      "folke/trouble.nvim",
-      event = "VimEnter",
-      cmd = { "TroubleToggle", "Trouble" },
-      config = function()
-        require("trouble").setup {}
-      end,
-    }
+    -- Requires at least v0.9
+    --use {
+    --  "folke/trouble.nvim",
+    --  event = "VimEnter",
+    --  cmd = { "TroubleToggle", "Trouble" },
+    --  config = function()
+    --    require("trouble").setup {}
+    --  end,
+    --}
     use { "jdhao/whitespace.nvim", event = "VimEnter" }
 
     -- Snippets
