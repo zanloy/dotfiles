@@ -55,11 +55,6 @@ function M.setup()
           },
           view = {
             adaptive_size = true,
-            mappings = {
-              list = {
-                { key = "u", action = "dir_up" },
-              },
-            },
           },
           renderer = {
             group_empty = true,
@@ -75,18 +70,6 @@ function M.setup()
     -- LSP Configuration
     use { "williamboman/mason.nvim" }
     use { "williamboman/mason-lspconfig.nvim" }
-    use {
-      "jose-elias-alvarez/null-ls.nvim",
-      config = function()
-        require("null-ls").setup({
-          sources = {
-            require("null-ls").builtins.formatting.stylua,
-            require("null-ls").builtins.diagnostics.eslint,
-            require("null-ls").builtins.completion.spell,
-          },
-        })
-      end,
-    }
     use {
       "neovim/nvim-lspconfig",
       as = "nvim-lspconfig",
@@ -110,7 +93,6 @@ function M.setup()
         "hrsh7th/cmp-cmdline",
         "hrsh7th/cmp-nvim-lua",
         "hrsh7th/cmp-calc",
-        "quangnguyen30192/cmp-nvim-ultisnips",
         "f3fora/cmp-spell",
         "hrsh7th/cmp-emoji",
         "ray-x/cmp-treesitter",

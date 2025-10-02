@@ -32,6 +32,10 @@ if [[ -x "$(command -v kubectl)" ]]; then
       tmux split-window -dh "watch -n 5 'kubectl get pods | grep $1 | column -t'"
     fi
   }
+  function kclearcon () {
+    kfind-pods-on-node $1 | grep confluent | awk '{print $2}' | xargs kubectl delete pod -n confluent
+  }
+
   # Plugins
   if [[ -x $(which kubectl-custom_cols) ]]; then
     alias kcc="kubectl custom-cols -o"

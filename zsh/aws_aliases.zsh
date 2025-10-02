@@ -3,6 +3,9 @@
 # Setup env
 export AWS_DEFAULT_REGION='us-gov-west-1'
 
+# EC2
+alias ssm='aws ssm start-session --target'
+
 # ECR
 alias ecrlogin='aws ecr get-login-password | docker login --username AWS --password-stdin $(aws sts get-caller-identity --query Account --output text).dkr.ecr.us-gov-west-1.amazonaws.com'
 function ecrpush(){

@@ -40,6 +40,13 @@ _addPath "${HOME}/.linuxbrew/bin" true
 # nodenv
 _addPath "${HOME}/.nodenv/bin" true
 
+# python
+_addPath "${HOME}/.pyenv/bin" true
+
+# rbenv
+_addPath "${HOME}/.rbenv/bin" true
+_addPath "${HOME}/.rbenv/shims" true
+
 # rust
 _addPath "${HOME}/.cargo/bin" true
 

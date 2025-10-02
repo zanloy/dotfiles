@@ -8,8 +8,8 @@ gwlogin ()
     cookiejar=$(mktemp)
     url="https://gangway.${cluster}.bip.va.gov"
     bwunlock
-    user=$(bw get username idm.${cluster}.bip.va.gov)
-    password=$(bw get password idm.${cluster}.bip.va.gov)
+    user=$(bw get username gangway.${cluster}.bip.va.gov)
+    password=$(bw get password gangway.${cluster}.bip.va.gov)
     req=$(curl -kLs "${url}/login" -c ${cookiejar} -o /dev/null -w "%{url_effective}")
     state=$(echo "$req" | grep -oP "(?<=state=)\w*")
     curl -kLs "${req}" --data-urlencode "login=${user}" --data-urlencode "password=${password}" -c ${cookiejar} -b ${cookiejar} -o /dev/null
