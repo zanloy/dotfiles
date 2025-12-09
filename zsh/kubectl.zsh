@@ -21,13 +21,18 @@ if [[ -x "$(command -v kubectl)" ]]; then
     done
   done
 
+  # Add krew to path if available
+  if [[ -d "${KREW_ROOT:-$HOME/.krew}/bin" ]]; then
+    path+=("${KREW_ROOT:-$HOME/.krew}/bin")
+  fi
+
   alias kge="kubectl get events --sort-by='.lastTimestamp'"
   alias kex="kubectl exec -it"
   alias kwp="kubectl get pods --watch"
   #alias kwps="tmux split-window -dh 'watch -n 5 kubectl get pods'"
   function kwps () {
     if [[ -z $1 ]]; then
-      tmux split-window -dh watch -n 5 kubectl get pods
+      tmux split-window -dh "watch -n 5 'kubectl get pods | column -t'"
     else
       tmux split-window -dh "watch -n 5 'kubectl get pods | grep $1 | column -t'"
     fi
@@ -70,11 +75,6 @@ if [[ -x "$(command -v kubectl)" ]]; then
   alias kbb='k run tmp-bb --image=busybox -it --rm --restart=Never --'
   alias -- kfind-pod="kubectl get pods --all-namespaces | grep "
   alias -- kfind-pods-on-node='tmp_func(){ kubectl get pods --all-namespaces -o wide --field-selector spec.nodeName="$1"; unset -f tmp_func; }; tmp_func'
-fi
-
-# Add krew to path if available
-if [[ -d "${KREW_ROOT:-$HOME/.krew}/bin" ]]; then
-  path+=("${KREW_ROOT:-$HOME/.krew}/bin")
 fi
 
 # Execute into a pod either interactively or running a cmd

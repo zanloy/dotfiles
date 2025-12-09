@@ -40,7 +40,7 @@ _addPath "${HOME}/.linuxbrew/bin" true
 # nodenv
 _addPath "${HOME}/.nodenv/bin" true
 
-# python
+# pyenv
 _addPath "${HOME}/.pyenv/bin" true
 
 # rbenv
